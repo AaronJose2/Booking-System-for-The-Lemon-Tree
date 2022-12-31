@@ -10,6 +10,8 @@ mainWin.title("Main Menu")
 #importing the font styles from seperate file and other screens
 from FontStyleSheet import *
 from AdministratorScreen import *
+from FrontDeskStaff import *
+
 # main title
 mainTitle = Label(mainWin, text="Login", font=Heading)
 mainTitle.pack()
@@ -33,11 +35,14 @@ def getPassUserID():
     userID = userIDentry.get()
     password = passwordentry.get()
 
-    print(adminBool.get())
-    #validation and verification.
-    print(userID, password)
-    mainWin.withdraw()
-    openAdminWindow()
+    if adminBool.get() == 1:
+        #validation and verification.
+        print(userID, password)
+        mainWin.withdraw()
+        openAdminWindow()
+    else:
+        mainWin.withdraw()
+        openFrontDeskWindow()
 
 passwordbtn = Button (mainWin, text="Let me innnnn", font=SH2, command=getPassUserID)
 passwordbtn.pack()
