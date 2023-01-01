@@ -85,6 +85,7 @@ def openAddRoomWindow():
     submitbtn.pack()
 
 def openEditRoomsWindow():
+    global listRoomLB
     #creates the View Room window
     EditRoomWin = Toplevel()
     EditRoomWin.geometry("400x400")
@@ -93,3 +94,36 @@ def openEditRoomsWindow():
     # main title
     mainTitle = Label(EditRoomWin, text="Edit Rooms", font=Heading)
     mainTitle.pack()
+
+    listRoomLB = Listbox(EditRoomWin)
+    listRoomLB.pack()
+
+    listRoomLB.delete(0,END)
+    for room in listRoom:
+        listRoomLB.insert(END, room.roomName + room.guestLimit + str(room.familyRoom))
+       
+    def editRoom():
+        global listRoomLB
+        if len(listRoomLB.curselection()) > 0:
+            index = listRoomLB.curselection()[0]
+
+            #Room Name
+            Label(EditRoomWin, text="Room Name").pack()
+            roomNameentryvar = StringVar()
+            Entry(EditRoomWin, textvariable=roomNameentryvar).pack()
+            roomNameentryvar.set(listRoom[index].roomName)
+            
+    
+            #Guest Limit
+            Label(EditRoomWin, text=" Name").pack()
+            guestLimitentryvar = StringVar()
+            Entry(EditRoomWin, textvariable=guestLimitentryvar).pack()
+            guestLimitentryvar.set(listRoom[index].guestLimit)
+            
+            
+
+    editbtn = Button(EditRoomWin, text="Edit Record", command=editRoom)
+    editbtn.pack()
+
+    
+
