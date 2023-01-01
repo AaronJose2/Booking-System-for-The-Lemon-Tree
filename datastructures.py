@@ -1,3 +1,5 @@
+from pickle import *
+
 class staff():
   staffID = "" #PK
   forename = ""
@@ -37,3 +39,26 @@ class booking():
   amountOfGuests = 0
   breakfastRequired = bool()
   dateBooked = ""
+
+def loadData():
+  global listStaff, listCustomer, listRoom, listBooking
+  try:
+    fh = open("LemonTree.pickle","rb")
+    listStaff = load(fh)
+    listCustomer = load(fh)
+    listRoom = load(fh)
+    listBooking =  load(fh)
+    fh.close()
+  except:
+    listStaff = []
+    listCustomer = []
+    listRoom = []
+    listBooking = []
+
+def saveData():
+  fh = open("LemonTree.pickle","wb")
+  dump(listStaff, fh)
+  dump(listCustomer, fh)
+  dump(listRoom, fh)
+  dump(listBooking, fh)
+  fh.close()

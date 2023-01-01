@@ -1,6 +1,7 @@
 #importing necessary modules and files
 from tkinter import *
-import datastructures
+from datastructures import *
+loadData()
 
 # setting up the main window.
 mainWin = Tk()
@@ -44,7 +45,7 @@ def getPassUserID():
         mainWin.withdraw()
         openFrontDeskWindow()
 
-passwordbtn = Button (mainWin, text="Let me innnnn", font=BTN, command=getPassUserID)
+passwordbtn = Button(mainWin, text="Let me innnnn", font=BTN, command=getPassUserID)
 passwordbtn.pack()
 
 
