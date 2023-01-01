@@ -28,8 +28,8 @@ passwordentry.pack()
 
 #checkbox to see if the user is an admin
 adminBool = IntVar()
-adminCheckButton = Checkbutton(mainWin, text="Are you an Administrator", variable=adminBool)
-adminCheckButton.pack()
+adminCheckbtn = Checkbutton(mainWin, text="Are you an Administrator", variable=adminBool)
+adminCheckbtn.pack()
 #submit button and function that gets the inputs from the Entry boxes and validate and verfies them.
 def getPassUserID():
     userID = userIDentry.get()
@@ -44,7 +44,7 @@ def getPassUserID():
         mainWin.withdraw()
         openFrontDeskWindow()
 
-passwordbtn = Button (mainWin, text="Let me innnnn", font=SH2, command=getPassUserID)
+passwordbtn = Button (mainWin, text="Let me innnnn", font=BTN, command=getPassUserID)
 passwordbtn.pack()
 
 

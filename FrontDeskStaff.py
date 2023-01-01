@@ -14,11 +14,11 @@ def openFrontDeskWindow():
     mainTitle = Label(frontDeskWin, text="Front Desk Menu", font=Heading)
     mainTitle.pack()
 
-    CustomerDetailsbtn = Button(frontDeskWin, text="Customer Details Menu", command=openCustomerDetailsMenuWindow)
+    CustomerDetailsbtn = Button(frontDeskWin, text="Customer Details Menu", font=BTN, command=openCustomerDetailsMenuWindow)
     CustomerDetailsbtn.pack()
 
-    BookingMenu = Button(frontDeskWin, text="Booking Menu", command=openBookingMenuWindow)
+    BookingMenu = Button(frontDeskWin, text="Booking Menu", font=BTN, command=openBookingMenuWindow)
     BookingMenu.pack()
 
-    TimetableMenubtn = Button(frontDeskWin, text="Timetable Menu", command=openTimetableMenuWindow)
+    TimetableMenubtn = Button(frontDeskWin, text="Timetable Menu", font=BTN, command=openTimetableMenuWindow)
     TimetableMenubtn.pack()

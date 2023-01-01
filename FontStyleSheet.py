@@ -19,6 +19,11 @@ SH2 = Font(
     size = 16
 )
 
+BTN = Font(
+    family = "Times",
+    size = 14
+)
+
 EB = Font(
     family = "Times",
     size = 12,

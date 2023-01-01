@@ -22,19 +22,19 @@ def openAdminWindow():
     
     #CustomerDetailsMenubtn = Button(adminWin, text="Customer Details Menu", command=lambda: [openCustomerDetailsMenuWindow(),withdraw()] )
     #CustomerDetailsMenubtn.pack()
-    CustomerDetailsMenubtn = Button(adminWin, text="Customer Details Menu", command=openCustomerDetailsMenuWindow)
+    CustomerDetailsMenubtn = Button(adminWin, text="Customer Details Menu", font=BTN, command=openCustomerDetailsMenuWindow)
     CustomerDetailsMenubtn.pack()
 
-    BookingsMenubtn = Button(adminWin, text="Booking Menu", command=openBookingMenuWindow)
+    BookingsMenubtn = Button(adminWin, text="Booking Menu", font=BTN, command=openBookingMenuWindow)
     BookingsMenubtn.pack()
 
-    StaffDetailsMenubtn = Button(adminWin, text="Staff Details Menu", command=openStaffDetailsMenuWindow)
+    StaffDetailsMenubtn = Button(adminWin, text="Staff Details Menu", font=BTN, command=openStaffDetailsMenuWindow)
     StaffDetailsMenubtn.pack()
 
-    HolidayMenubtn = Button(adminWin, text="Holiday Menu", command=openHolidayMenuWindow)
+    HolidayMenubtn = Button(adminWin, text="Holiday Menu", font=BTN, command=openHolidayMenuWindow)
     HolidayMenubtn.pack()
 
-    RoomMenubtn = Button(adminWin, text="Room Menu", command=openRoomMenuWindow)
+    RoomMenubtn = Button(adminWin, text="Room Menu", font=BTN, command=openRoomMenuWindow)
     RoomMenubtn.pack()
     
     
