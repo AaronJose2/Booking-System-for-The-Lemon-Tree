@@ -2,13 +2,14 @@ from pickle import *
 
 class staff():
   staffID = "" #PK
-  forename = ""
-  surname = ""
+  staffFName = ""
+  staffLName = ""
   jobTitle = ""
   dateJoined = ""
-  dateOfBirth = ""
-  telephoneNumber = ""
-  emergencyContactNumber = ""
+  DOB = ""
+  tNum = ""
+  emerContName = ""
+  emerContNum = ""
   staffPostcode = ""
   staffAddressLine1 = ""
   staffAddressLine2 = ""
@@ -25,7 +26,7 @@ class customer():
   customerCity = ""
 
 class room():
-  roomNumber = "" #PK
+  roomID = "" #PK
   roomName = ""
   guestLimit = ""
   familyRoom = bool()

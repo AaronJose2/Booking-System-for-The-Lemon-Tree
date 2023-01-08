@@ -37,7 +37,7 @@ def openViewRoomsWindow():
 
     listRoomLB.delete(0,END)
     for room in listRoom:
-        listRoomLB.insert(END, room.roomName + room.guestLimit + str(room.familyRoom))
+        listRoomLB.insert(END, room.roomID + room.roomName + room.guestLimit + str(room.familyRoom))
 
 def openAddRoomWindow():
     #global roomNameentry, guestLimitentry, familyRoomentry
@@ -61,8 +61,6 @@ def openAddRoomWindow():
     roomIDent.pack()
     submitbtn = Button(AddRoomWin, text="Generate RoomID", font=BTN, command=genreateRoomID)
     submitbtn.pack()
-
-
 
     roomNamelbl = Label(AddRoomWin, text="Room Name", font=SH1)
     roomNamelbl.pack()
@@ -89,11 +87,11 @@ def openAddRoomWindow():
             if familyRoomVar.get() == 1:
                 newRoom.familyRoom = True
             else:
+
                 newRoom.familyRoom = False
-        
-        listRoom.append(newRoom)
-        saveData()
-        print(listRoom)
+            listRoom.append(newRoom)
+            saveData()
+
     submitbtn = Button(AddRoomWin, text="Submit", font=BTN, command=addRoomFunct)
     submitbtn.pack()
 
