@@ -34,7 +34,7 @@ class room():
   
 class booking():
   customerID = "" #FK
-  roomNumber = "" #FK
+  roomID = "" #FK
   checkInDate = ""
   checkOutDate = ""
   amountOfGuests = 0
