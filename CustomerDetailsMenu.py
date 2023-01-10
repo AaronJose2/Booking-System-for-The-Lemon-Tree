@@ -199,7 +199,6 @@ def openEditCustomerDetailsWindow():
             customerCityvar.set(listCustomer[index].city)
 
             def submitfunct():
-
                 if True == True:
                     listCustomer[index].customerID = customerIDent.get()
                     listCustomer[index].forename = customerForenameent.get()
@@ -213,7 +212,6 @@ def openEditCustomerDetailsWindow():
                     listCustomerLB.delete(0,END)
                     for customer in listCustomer:
                         listCustomerLB.insert(END, customer.customerID + customer.forename + customer.surname + customer.telephoneNum + customer.postcode + customer.addressLine1 + customer.addressLine2 + customer.city)
-
 
                     saveData()
                     EditCustomerWin.withdraw()
