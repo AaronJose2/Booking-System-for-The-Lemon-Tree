@@ -22,7 +22,7 @@ def openAdminWindow():
     
     #CustomerDetailsMenubtn = Button(adminWin, text="Customer Details Menu", command=lambda: [openCustomerDetailsMenuWindow(),withdraw()] )
     #CustomerDetailsMenubtn.pack()
-    CustomerDetailsMenubtn = Button(adminWin, text="Customer Details Menu", font=BTN, command=openCustomerDetailsMenuWindow)
+    CustomerDetailsMenubtn = Button(adminWin, text="Customer Details Menu", font=BTN, command=CustomerDetailsMenuWin)
     CustomerDetailsMenubtn.pack()
 
     BookingsMenubtn = Button(adminWin, text="Booking Menu", font=BTN, command=openBookingMenuWindow)

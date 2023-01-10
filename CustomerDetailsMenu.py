@@ -1,4 +1,5 @@
 from tkinter import *
+from pickle import *
 from datastructures import *
 from FontStyleSheet import *
 
@@ -8,294 +9,218 @@ def CustomerDetailsMenuWin():
     customerDetailsMenuWin.geometry("400x400")
     customerDetailsMenuWin.title("Customer Details Menu")
 
-    #creates the function for viewing staff details
-    def viewStaffDetails():
-        #creates window
-        viewStaffDetailsWin = Toplevel()
-        viewStaffDetailsWin.geometry("650x400")
-        viewStaffDetailsWin.title("View Staff Details")
+    # main title
+    mainTitle = Label(customerDetailsMenuWin, text="Customer Menu", font=Heading)
+    mainTitle.pack()
 
-        #creates label
-        staffDetailslbl = Label(viewStaffDetailsWin, font=Heading, text="Staff Details",)
-        staffDetailslbl.pack()
-
-        staffDetailsLB = Listbox(viewStaffDetailsWin, width="75", font=SH2)
-        staffDetailsLB.pack()
-
-        staffDetailsLB.delete(0,END)
-        for staff in listStaff:
-            staffDetailsLB.insert(END, staff.staffID + staff.staffFName + staff.staffLName + staff.jobTitle + staff.dateJoined + staff.DOB + staff.tNum + staff.emerContName + staff.emerContNum + staff.staffPostcode + staff.staffAddressLine1 + staff.staffAddressLine2 + staff.staffCity)
+    viewCustomerbtn = Button(customerDetailsMenuWin, text="View Customer", font=BTN, command=openViewCustomerDetailsWindow)
+    viewCustomerbtn.pack()
     
-    viewStaffDetailsbtn = Button(staffDetailsMenuWin, text="View Staff Details", command=viewStaffDetails, font= BTN)
-    viewStaffDetailsbtn.pack()
+    AddCustomerbtn = Button(customerDetailsMenuWin, text="Add a Customer", font=BTN, command=openAddCustomerDetailsWindow)
+    AddCustomerbtn.pack()
 
-    def addStaffDetails():
-        #creates the View Room window
-        AddStaffWin = Toplevel()
-        AddStaffWin.geometry("400x850")
-        AddStaffWin.title("View Rooms")
+    EditCustomerbtn = Button(customerDetailsMenuWin, text="Edit Customer Details", font=BTN, command=openEditCustomerDetailsWindow)
+    EditCustomerbtn.pack()
 
-        #main title
-        mainTitle = Label(AddStaffWin, text="Add Staff", font=Heading)
-        mainTitle.pack()
+def openViewCustomerDetailsWindow():
+    global listCustomerLB
+    #creates the View Customer window
+    ViewCustomerWin = Toplevel()
+    ViewCustomerWin.geometry("400x400")
+    ViewCustomerWin.title("View Customer")
 
-        def genreateStaffID():
-            prefix = "ST"
-            ID = prefix + str(len(listStaff)+1).zfill(3)
-            staffIDvar.set(ID)
+    # main title
+    mainTitle = Label(ViewCustomerWin, text="View Customers", font=Heading)
+    mainTitle.pack()
 
-        staffIDlbl = Label(AddStaffWin, text="Staff ID", font=SH1)
-        staffIDlbl.pack()
-        staffIDvar = StringVar()
-        staffIDentry= Entry(AddStaffWin, textvariable=staffIDvar, font=EB)
-        staffIDentry.pack()
-        submitbtn = Button(AddStaffWin, text="Generate RoomID", font=BTN, command=genreateStaffID)
-        submitbtn.pack()
+    listCustomerLB = Listbox(ViewCustomerWin, font=SH2)
+    listCustomerLB.pack()
 
-        staffFNamelbl = Label(AddStaffWin, text="Staff Name", font=SH1)
-        staffFNamelbl.pack()
-        staffFNameentry = Entry(AddStaffWin, font=EB)
-        staffFNameentry.pack()
+    listCustomerLB.delete(0, END)
+    for customer in listCustomer:
+        listCustomerLB.insert(END, customer.customerID + customer.forename + customer.surname + customer.telephoneNum + customer.postcode + customer.addressLine1 + customer.addressLine2 + customer.city)
 
-        staffLNamelbl = Label(AddStaffWin, text="Staff Lastname", font=SH1)
-        staffLNamelbl.pack()
-        staffLNameentry = Entry(AddStaffWin, font=EB)
-        staffLNameentry.pack()
+def openAddCustomerDetailsWindow():
+    #creates the View Customer window
+    AddCustomerWin = Toplevel()
+    AddCustomerWin.geometry("400x600")
+    AddCustomerWin.title("Add Customer")
 
-        staffJobTitlelbl = Label(AddStaffWin, text="Staff Members Job Title", font=SH1)
-        staffJobTitlelbl.pack()
-        staffJobTitleentry = Entry(AddStaffWin, font=EB)
-        staffJobTitleentry.pack()
+    # main title
+    mainTitle = Label(AddCustomerWin, text="Add Customer", font=Heading)
+    mainTitle.pack()
 
-        staffDateJoinedlbl = Label(AddStaffWin, text="Date Joined", font=SH1)
-        staffDateJoinedlbl.pack()
-        staffDateJoinedentry = Entry(AddStaffWin, font=EB)
-        staffDateJoinedentry.pack()
+    #labels and respseective entries.
+    def genreateCustomerID():
+        prefix = "CR"
+        ID = prefix + str(len(listCustomer)+1).zfill(3)
+        CustomerIDvar.set(ID)
 
-        staffDOBlbl = Label(AddStaffWin, text="Staff Date of Birth", font=SH1)
-        staffDOBlbl.pack()
-        staffDOBentry = Entry(AddStaffWin, font=EB)
-        staffDOBentry.pack()
+    CustomerIDvar = StringVar()
+    CustomerIDentry= Entry(AddCustomerWin, textvariable=CustomerIDvar, font=EB)
+    CustomerIDentry.pack()
+    submitbtn = Button(AddCustomerWin, text="Generate CustomerID", font=BTN, command=genreateCustomerID)
+    submitbtn.pack()
 
-        staffTNumlbl = Label(AddStaffWin, text="Staff Telephone Number", font=SH1)
-        staffTNumlbl.pack()
-        staffTNumentry = Entry(AddStaffWin, font=EB)
-        staffTNumentry.pack()
+    CustomerFNamelbl = Label(AddCustomerWin, text="Customer First Name", font=SH1)
+    CustomerFNamelbl.pack()
+    CustomerFNameentry = Entry(AddCustomerWin, font=EB)
+    CustomerFNameentry.pack()
 
-        staffEmerContNamelbl = Label(AddStaffWin, text="Staff Emergenecy Contact Name", font=SH1)
-        staffEmerContNamelbl.pack()
-        staffEmerContNameentry = Entry(AddStaffWin, font=EB)
-        staffEmerContNameentry.pack()
+    CustomerSNamelbl = Label(AddCustomerWin, text="Customer Last Name", font=SH1)
+    CustomerSNamelbl.pack()
+    CustomerSNameentry = Entry(AddCustomerWin, font=EB)
+    CustomerSNameentry.pack()
 
-        staffEmerContNumlbl = Label(AddStaffWin, text="Staff Emergency Contact Number", font=SH1)
-        staffEmerContNumlbl.pack()
-        staffEmerContNumentry = Entry(AddStaffWin, font=EB)
-        staffEmerContNumentry.pack()
+    CustomerTelephoneNumlbl = Label(AddCustomerWin, text="Customers Telephone Number", font=SH1)
+    CustomerTelephoneNumlbl.pack()
+    CustomerTelephoneNumentry = Entry(AddCustomerWin, font=EB)
+    CustomerTelephoneNumentry.pack()
 
-        staffPostcodelbl = Label(AddStaffWin, text="Staff Postcode", font=SH1)
-        staffPostcodelbl.pack()
-        staffPostcodeentry = Entry(AddStaffWin, font=EB)
-        staffPostcodeentry.pack()
+    CustomerPostcodebtn = Label(AddCustomerWin, text="Customers Postcode", font=SH1)
+    CustomerPostcodebtn.pack()
+    CustomerPostcodeentry = Entry(AddCustomerWin, font=EB)
+    CustomerPostcodeentry.pack()
 
-        staffAddressLine1lbl = Label(AddStaffWin, text="Staff Address Line 1", font=SH1)
-        staffAddressLine1lbl.pack()
-        staffAddressLine1entry = Entry(AddStaffWin, font=EB)
-        staffAddressLine1entry.pack()
+    CustomerAddressLine1btn = Label(AddCustomerWin, text="Customers Address Line 1", font=SH1)
+    CustomerAddressLine1btn.pack()
+    CustomerAddressLine1entry = Entry(AddCustomerWin, font=EB)
+    CustomerAddressLine1entry.pack()
 
-        staffAddressLine2lbl = Label(AddStaffWin, text="Staff Address Line 2", font=SH1)
-        staffAddressLine2lbl.pack()
-        staffAddressLine2entry = Entry(AddStaffWin, font=EB)
-        staffAddressLine2entry.pack()
+    CustomerAddressLine2btn = Label(AddCustomerWin, text="Customers Address Line 2", font=SH1)
+    CustomerAddressLine2btn.pack()
+    CustomerAddressLine2entry = Entry(AddCustomerWin, font=EB)
+    CustomerAddressLine2entry.pack()
 
-        staffCitylbl = Label(AddStaffWin, text="Staff City", font=SH1)
-        staffCitylbl.pack()
-        staffCityentry = Entry(AddStaffWin, font=EB)
-        staffCityentry.pack()
+    CustomerCitybtn = Label(AddCustomerWin, text="Customers City", font=SH1)
+    CustomerCitybtn.pack()
+    CustomerCityentry = Entry(AddCustomerWin, font=EB)
+    CustomerCityentry.pack()
 
-        def addStaffFunct():
-            global staff
-            #validation
+    def addCustomerFunct():
+        #validation
 
-            if True == True:
-                newStaff = staff()
-                newStaff.staffID = staffIDentry.get()
-                newStaff.staffFName = staffFNameentry.get()
-                newStaff.staffLName = staffLNameentry.get()
-                newStaff.jobTitle = staffJobTitleentry.get()
-                newStaff.dateJoined = staffDateJoinedentry.get()
-                newStaff.DOB = staffDOBentry.get()
-                newStaff.tNum = staffTNumentry.get()
-                newStaff.emerContName = staffEmerContNameentry.get()
-                newStaff.emerContNum = staffEmerContNumentry.get()
-                newStaff.staffPostcode = staffPostcodeentry.get()
-                newStaff.staffAddressLine1 = staffAddressLine1entry.get()
-                newStaff.staffAddressLine2 = staffAddressLine2entry.get()
-                newStaff.staffCity = staffCityentry.get()
-                AddStaffWin.withdraw()
-                listStaff.append(newStaff)
-                saveData()
+        if True == True:
+            newCustomer = customer()
+            newCustomer.customerID = CustomerIDentry.get()
+            newCustomer.forename = CustomerFNameentry.get()
+            newCustomer.surname = CustomerFNameentry.get()
+            newCustomer.telephoneNum = CustomerTelephoneNumentry.get()
+            newCustomer.postcode = CustomerPostcodeentry.get()
+            newCustomer.addressLine1 = CustomerAddressLine1entry.get()
+            newCustomer.addressLine2 = CustomerAddressLine2entry.get()
+            newCustomer.city = CustomerCityentry.get()
+            listCustomer.append(newCustomer)
+            AddCustomerWin.withdraw()
+            saveData()
 
-        submitbtn = Button(AddStaffWin, text="Submit", font=BTN, command=addStaffFunct)
-        submitbtn.pack()
+    submitbtn = Button(AddCustomerWin, text="Submit", font=BTN, command=addCustomerFunct)
+    submitbtn.pack()
 
-    addStaffDetailsbtn = Button(staffDetailsMenuWin, text="Add Staff Details", command=addStaffDetails, font= BTN)
-    addStaffDetailsbtn.pack()
+def openEditCustomerDetailsWindow():
+    ChooseCustomerWin = Toplevel()
+    ChooseCustomerWin.geometry("650x400")
+    ChooseCustomerWin.title("Choose a Customer's Details to Edit")
 
-    def editStaffDetailsWindow():
-        #creates the View Staff Details window
-        ChooseStaffWin = Toplevel()
-        ChooseStaffWin.geometry("650x400")
-        ChooseStaffWin.title("Choose a Staff to Edit")
+    # main title
+    mainTitle = Label(ChooseCustomerWin, text="Edit Customers", font=Heading)
+    mainTitle.pack()
 
-        mainTitle = Label(ChooseStaffWin, text="Choose a Staff Member's Details to Edit", font=Heading)
-        mainTitle.pack()
+    listCustomerLB = Listbox(ChooseCustomerWin, font=SH2)
+    listCustomerLB.pack()
 
-        staffDetailsLB = Listbox(ChooseStaffWin, width=75, font=SH2)
-        staffDetailsLB.pack()
+    listCustomerLB.delete(0,END)
+    for customer in listCustomer:
+        listCustomerLB.insert(END, customer.customerID + customer.forename + customer.surname + customer.telephoneNum + customer.postcode + customer.addressLine1 + customer.addressLine2 + customer.city)
 
-        staffDetailsLB.delete(0,END)
-        for staff in listStaff:
-            staffDetailsLB.insert(END, staff.staffID + staff.staffFName + staff.staffLName + staff.jobTitle + staff.dateJoined + staff.DOB + staff.tNum + staff.emerContName + staff.emerContNum + staff.staffPostcode + staff.staffAddressLine1 + staff.staffAddressLine2 + staff.staffCity)
-    
-        def editStaff():
-            if len(staffDetailsLB.curselection()) > 0:
-                index = staffDetailsLB.curselection()[0]
+    def editCustomer():
+        if len(listCustomerLB.curselection()) > 0:
+            index = listCustomerLB.curselection()[0]
 
-                EditStaffWin = Toplevel()
-                EditStaffWin.geometry("400x900")
-                EditStaffWin.title("Edit Staff Details")
+            EditCustomerWin = Toplevel()
+            EditCustomerWin.geometry("400x900")
+            EditCustomerWin.title("Edit Customer Details")
 
-                mainTitle = Label(EditStaffWin, text="Edit Staff Details", font=Heading)
-                mainTitle.pack()
+            customerIDlbl = Label(EditCustomerWin, text="Customer ID", font=SH1)
+            customerIDlbl.pack()
+            customerIDvar = StringVar()
+            customerIDent = Entry(EditCustomerWin, textvariable=customerIDvar, font=EB)
+            customerIDent.pack()
+            customerIDvar.set(listCustomer[index].customerID)
 
-                staffIDlbl = Label(EditStaffWin, text="Staff ID", font=SH1)
-                staffIDlbl.pack()
-                staffIDvar = StringVar()
-                staffIDentry= Entry(EditStaffWin, textvariable=staffIDvar, font=EB)
-                staffIDentry.pack()
-                staffIDvar.set(listStaff[index].staffID)
-
-                staffFNamelbl = Label(EditStaffWin, text="Staff Name", font=SH1)
-                staffFNamelbl.pack()
-                staffFNamevar = StringVar()
-                staffFNameentry = Entry(EditStaffWin, textvariable=staffFNamevar, font=EB)
-                staffFNameentry.pack()
-                staffFNamevar.set(listStaff[index].staffFName)
-
-                staffLNamelbl = Label(EditStaffWin, text="Staff Lastname", font=SH1)
-                staffLNamelbl.pack()
-                staffLNamevar = StringVar()
-                staffLNameentry = Entry(EditStaffWin, textvariable=staffLNamevar, font=EB)
-                staffLNameentry.pack()
-                staffLNamevar.set(listStaff[index].staffLName)
-
-                staffJobTitlelbl = Label(EditStaffWin, text="Staff Members Job Title", font=SH1)
-                staffJobTitlelbl.pack()
-                staffJobTitlevar = StringVar()
-                staffJobTitleentry = Entry(EditStaffWin, textvariable=staffJobTitlevar, font=EB)
-                staffJobTitleentry.pack()
-                staffJobTitlevar.set(listStaff[index].jobTitle)
-
-                staffDateJoinedlbl = Label(EditStaffWin, text="Date Joined", font=SH1)
-                staffDateJoinedlbl.pack()
-                staffDateJoinedvar = StringVar()
-                staffDateJoinedentry = Entry(EditStaffWin, textvariable=staffDateJoinedvar, font=EB)
-                staffDateJoinedentry.pack()
-                staffDateJoinedvar.set(listStaff[index].dateJoined)
-
-                staffDOBlbl = Label(EditStaffWin, text="Staff Date of Birth", font=SH1)
-                staffDOBlbl.pack()
-                staffDOBvar = StringVar()
-                staffDOBentry = Entry(EditStaffWin, textvariable=staffDOBvar, font=EB)
-                staffDOBentry.pack()
-                staffDOBvar.set(listStaff[index].DOB)
-
-                staffTNumlbl = Label(EditStaffWin, text="Staff Telephone Number", font=SH1)
-                staffTNumlbl.pack()
-                staffTNumvar = StringVar()
-                staffTNumentry = Entry(EditStaffWin, textvariable=staffTNumvar, font=EB)
-                staffTNumentry.pack()
-                staffTNumvar.set(listStaff[index].tNum)
-
-                staffEmerContNamelbl = Label(EditStaffWin, text="Staff Emergenecy Contact Name", font=SH1)
-                staffEmerContNamelbl.pack()
-                staffEmerContNamevar = StringVar()
-                staffEmerContNameentry = Entry(EditStaffWin, textvariable=staffEmerContNamevar, font=EB)
-                staffEmerContNameentry.pack()
-                staffEmerContNamevar.set(listStaff[index].emerContName)
-
-                staffEmerContNumlbl = Label(EditStaffWin, text="Staff Emergency Contact Number", font=SH1)
-                staffEmerContNumlbl.pack()
-                staffEmerContNumvar = StringVar()
-                staffEmerContNumentry = Entry(EditStaffWin, textvariable=staffEmerContNumvar, font=EB)
-                staffEmerContNumentry.pack()
-                staffEmerContNumvar.set(listStaff[index].emerContNum)
-
-                staffPostcodelbl = Label(EditStaffWin, text="Staff Postcode", font=SH1)
-                staffPostcodelbl.pack()
-                staffPostcodevar = StringVar()
-                staffPostcodeentry = Entry(EditStaffWin, textvariable=staffPostcodevar, font=EB)
-                staffPostcodeentry.pack()
-                staffPostcodevar.set(listStaff[index].staffPostcode)
-
-                staffAddressLine1lbl = Label(EditStaffWin, text="Staff Address Line 1", font=SH1)
-                staffAddressLine1lbl.pack()
-                staffAddressLine1var = StringVar()
-                staffAddressLine1entry = Entry(EditStaffWin, textvariable=staffAddressLine1var, font=EB)
-                staffAddressLine1entry.pack()
-                staffAddressLine1var.set(listStaff[index].staffAddressLine2)
-
-                staffAddressLine2lbl = Label(EditStaffWin, text="Staff Address Line 2", font=SH1)
-                staffAddressLine2lbl.pack()
-                staffAddressLine2var = StringVar()
-                staffAddressLine2entry = Entry(EditStaffWin, textvariable=staffAddressLine2var, font=EB)
-                staffAddressLine2entry.pack()
-                staffAddressLine2var.set(listStaff[index].staffID)
+            customerForenamelbl = Label(EditCustomerWin, text="Customer Forename", font=SH1)
+            customerForenamelbl.pack()
+            customerForenamevar = StringVar()
+            customerForenameent = Entry(EditCustomerWin, textvariable=customerForenamevar, font=EB)
+            customerForenameent.pack()
+            customerForenamevar.set(listCustomer[index].forename)
 
 
-                staffCitylbl = Label(EditStaffWin, text="Staff City", font=SH1)
-                staffCitylbl.pack()
-                staffCityvar = StringVar()
-                staffCityentry = Entry(EditStaffWin, textvariable=staffCityvar, font=EB)
-                staffCityentry.pack()
+            customerSurnamelbl = Label(EditCustomerWin, text="Customer Surname", font=SH1)
+            customerSurnamelbl.pack()
+            customerSurnamevar = StringVar()
+            customerSurnameent = Entry(EditCustomerWin, textvariable=customerSurnamevar, font=EB)
+            customerSurnameent.pack()
+            customerSurnamevar.set(listCustomer[index].surname)
 
-                staffCityvar.set(listStaff[index].staffCity)
+            customerTelephoneNumlbl = Label(EditCustomerWin, text="Customer TelephoneNum", font=SH1)
+            customerTelephoneNumlbl.pack()
+            customerTelephoneNumvar = StringVar()
+            customerTelephoneNument = Entry(EditCustomerWin, textvariable=customerTelephoneNumvar, font=EB)
+            customerTelephoneNument.pack()
+            customerTelephoneNumvar.set(listCustomer[index].telephoneNum)
 
-                def addStaffFunct():
-                    global staff
-                    #validation
+            customerPostcodelbl = Label(EditCustomerWin, text="Customer Postcode", font=SH1)
+            customerPostcodelbl.pack()
+            customerPostcodevar = StringVar()
+            customerPostcodeent = Entry(EditCustomerWin, textvariable=customerPostcodevar, font=EB)
+            customerPostcodeent.pack()
+            customerPostcodevar.set(listCustomer[index].postcode)
 
-                    if True == True:
-                        newStaff = staff()
-                        listStaff[index].staffID = staffIDentry.get()
-                        listStaff[index].staffFName = staffFNameentry.get()
-                        listStaff[index].staffLName = staffLNameentry.get()
-                        listStaff[index].jobTitle = staffJobTitleentry.get()
-                        listStaff[index].dateJoined = staffDateJoinedentry.get()
-                        listStaff[index].DOB = staffDOBentry.get()
-                        listStaff[index].tNum = staffTNumentry.get()
-                        listStaff[index].emerContName = staffEmerContNameentry.get()
-                        listStaff[index].emerContNum = staffEmerContNumentry.get()
-                        listStaff[index].staffPostcode = staffPostcodeentry.get()
-                        listStaff[index].staffAddressLine1 = staffAddressLine1entry.get()
-                        listStaff[index].staffAddressLine2 = staffAddressLine2entry.get()
-                        listStaff[index].staffCity = staffCityentry.get()
-                        saveData()
+            customerAddressLine1lbl = Label(EditCustomerWin, text="Customer Address Line 1", font=SH1)
+            customerAddressLine1lbl.pack()
+            customerAddressLine1var = StringVar()
+            customerAddressLine1ent = Entry(EditCustomerWin, textvariable=customerAddressLine1var, font=EB)
+            customerAddressLine1ent.pack()
+            customerAddressLine1var.set(listCustomer[index].addressLine1)
 
-                        staffDetailsLB.delete(0,END)
-                        for staff in listStaff:
-                            staffDetailsLB.insert(END, staff.staffID + staff.staffFName + staff.staffLName + staff.jobTitle + staff.dateJoined + staff.DOB + staff.tNum + staff.emerContName + staff.emerContNum + staff.staffPostcode + staff.staffAddressLine1 + staff.staffAddressLine2 + staff.staffCity)
-    
-                    EditStaffWin.withdraw()
+            customerAddressLine2lbl = Label(EditCustomerWin, text="Customer Address Line 2", font=SH1)
+            customerAddressLine2lbl.pack()
+            customerAddressLine2var = StringVar()
+            customerAddressLine2ent = Entry(EditCustomerWin, textvariable=customerAddressLine2var, font=EB)
+            customerAddressLine2ent.pack()
+            customerAddressLine2var.set(listCustomer[index].addressLine2)
+
+            customerCitylbl = Label(EditCustomerWin, text="Customer City", font=SH1)
+            customerCitylbl.pack()
+            customerCityvar = StringVar()
+            customerCityent = Entry(EditCustomerWin, textvariable=customerCityvar, font=EB)
+            customerCityent.pack()
+            customerCityvar.set(listCustomer[index].city)
+
+            def submitfunct():
+
+                if True == True:
+                    listCustomer[index].customerID = customerIDent.get()
+                    listCustomer[index].forename = customerForenameent.get()
+                    listCustomer[index].surname = customerSurnameent.get()
+                    listCustomer[index].telephoneNum = customerTelephoneNument.get()
+                    listCustomer[index].postcode = customerPostcodeent.get()
+                    listCustomer[index].addressLine1 = customerAddressLine1ent.get()
+                    listCustomer[index].addressLine2 = customerAddressLine2ent.get()
+                    listCustomer[index].city = customerCityent.get()
+
+                    listCustomerLB.delete(0,END)
+                    for customer in listCustomer:
+                        listCustomerLB.insert(END, customer.customerID + customer.forename + customer.surname + customer.telephoneNum + customer.postcode + customer.addressLine1 + customer.addressLine2 + customer.city)
 
 
-                submitbtn = Button(EditStaffWin, text="Submit", font=BTN, command=addStaffFunct)
-                submitbtn.pack()
+                    saveData()
+                    EditCustomerWin.withdraw()
 
-        editbtn = Button(ChooseStaffWin, text="Edit Record", command=editStaff)
-        editbtn.pack()
-
-    editStaffDetailsbtn = Button(staffDetailsMenuWin, text="Edit Staff Details", font=BTN, command=editStaffDetailsWindow)
-    editStaffDetailsbtn.pack()
+            submitbtn = Button(EditCustomerWin,text="submit changes", command = submitfunct)
+            submitbtn.pack()
 
 
+    editbtn = Button(ChooseCustomerWin, text="Edit Record", command=editCustomer)
+    editbtn.pack()

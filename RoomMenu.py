@@ -40,7 +40,6 @@ def openViewRoomsWindow():
         listRoomLB.insert(END, room.roomID + room.roomName + room.guestLimit + str(room.familyRoom))
 
 def openAddRoomWindow():
-    #global roomNameentry, guestLimitentry, familyRoomentry
     #creates the View Room window
     AddRoomWin = Toplevel()
     AddRoomWin.geometry("400x400")
@@ -119,7 +118,7 @@ def openEditRoomsWindow():
         global listRoomLB
         if len(listRoomLB.curselection()) > 0:
             index = listRoomLB.curselection()[0]
-
+            
             #Room Name
             rmlbl = Label(EditRoomWin, text= "Room Name", font=SH1)
             rmlbl.pack()

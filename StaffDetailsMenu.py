@@ -29,10 +29,10 @@ def openStaffDetailsMenuWindow():
     viewStaffDetailsbtn.pack()
 
     def addStaffDetails():
-        #creates the View Room window
+        #creates the View Staff window
         AddStaffWin = Toplevel()
         AddStaffWin.geometry("400x850")
-        AddStaffWin.title("View Rooms")
+        AddStaffWin.title("View Room")
 
         #main title
         mainTitle = Label(AddStaffWin, text="Add Staff", font=Heading)
@@ -48,7 +48,7 @@ def openStaffDetailsMenuWindow():
         staffIDvar = StringVar()
         staffIDentry= Entry(AddStaffWin, textvariable=staffIDvar, font=EB)
         staffIDentry.pack()
-        submitbtn = Button(AddStaffWin, text="Generate RoomID", font=BTN, command=genreateStaffID)
+        submitbtn = Button(AddStaffWin, text="Generate StaffID", font=BTN, command=genreateStaffID)
         submitbtn.pack()
 
         staffFNamelbl = Label(AddStaffWin, text="Staff Name", font=SH1)
@@ -242,14 +242,14 @@ def openStaffDetailsMenuWindow():
                 staffAddressLine1var = StringVar()
                 staffAddressLine1entry = Entry(EditStaffWin, textvariable=staffAddressLine1var, font=EB)
                 staffAddressLine1entry.pack()
-                staffAddressLine1var.set(listStaff[index].staffAddressLine2)
+                staffAddressLine1var.set(listStaff[index].staffAddressLine1)
 
                 staffAddressLine2lbl = Label(EditStaffWin, text="Staff Address Line 2", font=SH1)
                 staffAddressLine2lbl.pack()
                 staffAddressLine2var = StringVar()
                 staffAddressLine2entry = Entry(EditStaffWin, textvariable=staffAddressLine2var, font=EB)
                 staffAddressLine2entry.pack()
-                staffAddressLine2var.set(listStaff[index].staffID)
+                staffAddressLine2var.set(listStaff[index].staffAddressLine2)
 
 
                 staffCitylbl = Label(EditStaffWin, text="Staff City", font=SH1)
@@ -261,11 +261,7 @@ def openStaffDetailsMenuWindow():
                 staffCityvar.set(listStaff[index].staffCity)
 
                 def addStaffFunct():
-                    global staff
-                    #validation
-
                     if True == True:
-                        newStaff = staff()
                         listStaff[index].staffID = staffIDentry.get()
                         listStaff[index].staffFName = staffFNameentry.get()
                         listStaff[index].staffLName = staffLNameentry.get()
@@ -285,7 +281,7 @@ def openStaffDetailsMenuWindow():
                         for staff in listStaff:
                             staffDetailsLB.insert(END, staff.staffID + staff.staffFName + staff.staffLName + staff.jobTitle + staff.dateJoined + staff.DOB + staff.tNum + staff.emerContName + staff.emerContNum + staff.staffPostcode + staff.staffAddressLine1 + staff.staffAddressLine2 + staff.staffCity)
     
-                    EditStaffWin.withdraw()
+                        EditStaffWin.withdraw()
 
 
                 submitbtn = Button(EditStaffWin, text="Submit", font=BTN, command=addStaffFunct)

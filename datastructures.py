@@ -20,10 +20,10 @@ class customer():
   forename = ""
   surname = ""
   telephoneNum = ""
-  customerPostcode = ""
-  customerAddressLine1 = ""
-  customerAddressLine2 = ""
-  customerCity = ""
+  postcode = ""
+  addressLine1 = ""
+  addressLine2 = ""
+  city = ""
 
 class room():
   roomID = "" #PK
