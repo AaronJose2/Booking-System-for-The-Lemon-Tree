@@ -13,16 +13,16 @@ def CustomerDetailsMenuWin():
     mainTitle = Label(customerDetailsMenuWin, text="Customer Menu", font=Heading)
     mainTitle.pack()
 
-    viewCustomerbtn = Button(customerDetailsMenuWin, text="View Customer", font=BTN, command=openViewCustomerDetailsWindow)
+    viewCustomerbtn = Button(customerDetailsMenuWin, text="View Customer", font=BTN, command=ViewCustomerDetailsWindow)
     viewCustomerbtn.pack()
     
-    AddCustomerbtn = Button(customerDetailsMenuWin, text="Add a Customer", font=BTN, command=openAddCustomerDetailsWindow)
+    AddCustomerbtn = Button(customerDetailsMenuWin, text="Add a Customer", font=BTN, command=AddCustomerDetailsWindow)
     AddCustomerbtn.pack()
 
-    EditCustomerbtn = Button(customerDetailsMenuWin, text="Edit Customer Details", font=BTN, command=openEditCustomerDetailsWindow)
+    EditCustomerbtn = Button(customerDetailsMenuWin, text="Edit Customer Details", font=BTN, command=EditCustomerDetailsWindow)
     EditCustomerbtn.pack()
 
-def openViewCustomerDetailsWindow():
+def ViewCustomerDetailsWindow():
     global listCustomerLB
     #creates the View Customer window
     ViewCustomerWin = Toplevel()
@@ -40,7 +40,7 @@ def openViewCustomerDetailsWindow():
     for customer in listCustomer:
         listCustomerLB.insert(END, customer.customerID + customer.forename + customer.surname + customer.telephoneNum + customer.postcode + customer.addressLine1 + customer.addressLine2 + customer.city)
 
-def openAddCustomerDetailsWindow():
+def AddCustomerDetailsWindow():
     #creates the View Customer window
     AddCustomerWin = Toplevel()
     AddCustomerWin.geometry("400x600")
@@ -117,7 +117,7 @@ def openAddCustomerDetailsWindow():
     submitbtn = Button(AddCustomerWin, text="Submit", font=BTN, command=addCustomerFunct)
     submitbtn.pack()
 
-def openEditCustomerDetailsWindow():
+def EditCustomerDetailsWindow():
     ChooseCustomerWin = Toplevel()
     ChooseCustomerWin.geometry("650x400")
     ChooseCustomerWin.title("Choose a Customer's Details to Edit")
@@ -222,3 +222,5 @@ def openEditCustomerDetailsWindow():
 
     editbtn = Button(ChooseCustomerWin, text="Edit Record", command=editCustomer)
     editbtn.pack()
+
+    

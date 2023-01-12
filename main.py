@@ -1,6 +1,8 @@
 #importing necessary modules and files
 from tkinter import *
 from datastructures import *
+
+
 loadData()
 
 # setting up the main window.

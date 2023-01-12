@@ -33,6 +33,7 @@ class room():
   ppp = 0
   
 class booking():
+  bookingID = "" #PK
   customerID = "" #FK
   roomID = "" #FK
   checkInDate = ""
