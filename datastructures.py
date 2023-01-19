@@ -31,6 +31,7 @@ class room():
   guestLimit = ""
   familyRoom = bool()
   ppp = 0
+  datesBooked= []
   
 class booking():
   bookingID = "" #PK
@@ -41,6 +42,7 @@ class booking():
   amountOfGuests = 0
   breakfastRequired = bool()
   dateBooked = ""
+
 
 def loadData():
   global listStaff, listCustomer, listRoom, listBooking

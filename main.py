@@ -13,6 +13,7 @@ mainWin.title("Main Menu")
 #importing the font styles from seperate file and other screens
 from FontStyleSheet import *
 from AdministratorScreen import *
+
 from FrontDeskStaff import *
 
 # main title
