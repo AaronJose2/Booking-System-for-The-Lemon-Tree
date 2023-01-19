@@ -32,13 +32,20 @@ def addBookingWindow():
     AddBookingWin.title("Add a Booking")
 
     def restOfBooking():
-        for b in listRoom:
-            n = 0
-            temp = listRoom[b].datesBooked
-            if daylist[n] == listRoom[b].datesBooked:
-                return
-            else:
-                n += 1
+        try:
+            check = listRoom[0].datesBooked #ERRORrrrrrrrrr------------asfoa [eog;ocje`v;ochf…ø √®h;isuzhxcaoiduvfxigucuzhcvo;zoud zugh`]w
+
+            for b in listRoom:
+                n = 0
+                temp = b.datesBooked
+                print(temp)
+                if daylist[0] == temp[n]:
+                    print("found")
+                else:
+                    saveData()
+
+        except:
+            saveData()
 
 
     def selectDate():
@@ -47,23 +54,27 @@ def addBookingWindow():
         end_date = selectODateent.get()
 
         #replace with recursion loop
-        start_date = start_date.replace("/","") 
+        start_date = start_date.replace("/","")  #removes / from the data that the user enters
         end_date = end_date.replace("/","")
 
-        start_date = date(int(str(20)+str(start_date[4:6])), int(start_date[2:4]), int(start_date[0:2]))
+        start_date = date(int(str(20)+str(start_date[4:6])), int(start_date[2:4]), int(start_date[0:2])) #reformats the data to a format that the module datetime understands but is still common sense to the user
         end_date = date(int(str(20)+str(end_date[4:6])), int(end_date[2:4]), int(end_date[0:2]))
 
-        delta = end_date - start_date   # returns timedelta
+        delta = end_date - start_date   # returns difference in dates
 
-        for i in range(delta.days + 1):
-            day = start_date + timedelta(days=i)
-            day = str(day)
+        try:
             daylist = listRoom[0].datesBooked
+        except:
+            daylist = []
+
+        for i in range(delta.days + 1): # returns all of the dates between the two specified in list form
+            day = start_date + timedelta(days=i) 
+            day = str(day)
             daylist.append(day)
-
+            print(daylist[0])
             print(daylist)
-
-            restOfBooking()
+        
+        restOfBooking()
 
     mainTitle = Label(AddBookingWin, text="Add a Booking", font= Heading)
     mainTitle.pack()
@@ -83,6 +94,8 @@ def addBookingWindow():
     selectDatebtn = Button(AddBookingWin, text="View Available Rooms", font=BTN, command=selectDate)
     selectDatebtn.pack()
 
+    for b in listRoom:
+        print(b.datesBooked)
 
 
 def editBookingWindow():
