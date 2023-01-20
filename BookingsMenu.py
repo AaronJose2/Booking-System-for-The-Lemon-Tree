@@ -23,30 +23,116 @@ def openBookingMenuWindow():
     EditBookingbtn = Button(BookingDetailsMenuWin, text="Edit Booking Details", font=BTN, command=editBookingWindow)
     EditBookingbtn.pack()
 
+
 def viewBookingWindow():
-    pass
+    ViewBookingWin = Toplevel()
+    ViewBookingWin.geometry("400x600")
+    ViewBookingWin.title("Bookings")
+
+    listBookingLB = Listbox(ViewBookingWin, font=SH2)
+    listBookingLB.pack()
+
+    for booking in listBooking:
+        listBookingLB.insert(END, booking.bookingID + booking.customerID + booking.roomID + booking.amountOfGuests + str(booking.breakfastRequired))
 
 def addBookingWindow():
     AddBookingWin = Toplevel()
-    AddBookingWin.geometry("400x400")
-    AddBookingWin.title("Add a Booking")
+    AddBookingWin.geometry("400x600")
+    AddBookingWin.title("Choose a Date and Room")
 
     def restOfBooking():
-        try:
-            check = listRoom[0].datesBooked #ERRORrrrrrrrrr------------asfoa [eog;ocje`v;ochf…ø √®h;isuzhxcaoiduvfxigucuzhcvo;zoud zugh`]w
+        AddRestOfBookingWin = Toplevel()
+        AddRestOfBookingWin.geometry("400x600")
+        AddRestOfBookingWin.title("Enter Details")
 
-            for b in listRoom:
-                n = 0
-                temp = b.datesBooked
-                print(temp)
-                if daylist[0] == temp[n]:
-                    print("found")
+        def savefunct():
+            #validation
+            if True == True:
+                newBooking = booking()
+                newBooking.bookingID = bookingIDent.get()
+                newBooking.roomID = roomIDent.get()
+                newBooking.customerID = CustomerIDentry.get()
+                newBooking.amountOfGuests = NumGuestentry.get()
+
+                if BreakReqVar.get() == 1:
+                    newBooking.breakfastRequired = True
                 else:
-                    saveData()
+                    newBooking.breakfastRequired = False
 
-        except:
-            saveData()
+                listBooking.append(newBooking)
+                AddRestOfBookingWin.withdraw()
+                AddBookingWin.withdraw()
+                saveData()
 
+        if len(listRoomLB.curselection()) > 0:
+            index = listRoomLB.curselection()[0]
+
+            roomIDlbl = Label(AddRestOfBookingWin, text= "Room ID", font=SH1)
+            roomIDlbl.pack()
+            roomIDentryvar = StringVar()
+            roomIDent = Entry(AddRestOfBookingWin, textvariable=roomIDentryvar, font=EB)
+            roomIDent.pack()
+            roomIDentryvar.set(listRoom[index].roomID)
+
+            def genreateRoomID():
+                prefix = "BG"
+                ID = prefix + str(len(listBooking)+1).zfill(3)
+                bookingIDvar.set(ID)
+
+            bookingIDlbl = Label(AddRestOfBookingWin, text= "Booking ID", font=SH1)
+            bookingIDlbl.pack()
+            bookingIDvar = StringVar()
+            bookingIDent= Entry(AddRestOfBookingWin, textvariable=bookingIDvar, font=EB)
+            bookingIDent.pack()
+            submitbtn = Button(AddRestOfBookingWin, text="Generate Booking ID", font=BTN, command=genreateRoomID)
+            submitbtn.pack()
+
+            def customerIDSelection():
+                CustomerIDMenuWin = Toplevel()
+                CustomerIDMenuWin.geometry("400x400")
+                CustomerIDMenuWin.title("Customer ID Selection Menu")
+
+                # main title
+                mainTitle = Label(CustomerIDMenuWin, text= "Choose Customer ID", font=Heading)
+                mainTitle.pack()
+
+                listCustomerLB = Listbox(CustomerIDMenuWin, font=SH2)
+                listCustomerLB.pack()
+
+                listCustomerLB.delete(0,END)
+                for customer in listCustomer:
+                    listCustomerLB.insert(END, customer.customerID + customer.forename + customer.surname)
+
+                def addCustomerID():
+                    if len(listCustomerLB.curselection()) > 0:
+                        index = listCustomerLB.curselection()[0]
+
+                    CustomerIDvar.set(listCustomer[index].customerID)
+                    CustomerIDMenuWin.withdraw()
+
+                submitbtn = Button(CustomerIDMenuWin, text= "Select", font=BTN, command=addCustomerID)
+                submitbtn.pack()
+
+            CustomerIDlbl = Label(AddRestOfBookingWin, text="Customer ID", font=SH1)
+            CustomerIDlbl.pack()
+            CustomerIDvar = StringVar()
+            CustomerIDentry= Entry(AddRestOfBookingWin, textvariable=CustomerIDvar, font=EB)
+            CustomerIDentry.pack()
+            CustomerIDSelectionbtn = Button(AddRestOfBookingWin, text="Select Customer ID", font=BTN, command=customerIDSelection)
+            CustomerIDSelectionbtn.pack()
+
+            NumGuestlbl = Label(AddRestOfBookingWin, text="Number of Guests", font=SH1)
+            NumGuestlbl.pack()
+            NumGuestvar = IntVar()
+            NumGuestentry= Entry(AddRestOfBookingWin, textvariable=NumGuestvar, font=EB)
+            NumGuestentry.pack()
+
+            BreakReqVar = IntVar()
+            BreakReqbtn = Checkbutton(AddRestOfBookingWin, text="Do you require Breakfast?", variable=BreakReqVar)
+            BreakReqbtn.pack()
+
+            submitbtn = Button(AddRestOfBookingWin, text= "Select", font=BTN, command=savefunct)
+            submitbtn.pack()
 
     def selectDate():
         global daylist
@@ -63,7 +149,7 @@ def addBookingWindow():
         delta = end_date - start_date   # returns difference in dates
 
         try:
-            daylist = listRoom[0].datesBooked
+            daylist = listBooking[0].datesBooked
         except:
             daylist = []
 
@@ -71,10 +157,15 @@ def addBookingWindow():
             day = start_date + timedelta(days=i) 
             day = str(day)
             daylist.append(day)
-            print(daylist[0])
-            print(daylist)
-        
-        restOfBooking()
+
+        for n in daylist:
+            if len(listBooking) == 0:
+                listRoomLB.delete(0,END)
+                for room in listRoom:
+                    listRoomLB.insert(END, room.roomName + room.guestLimit + str(room.familyRoom))
+            else:
+                for m in listBooking:
+                    pass # needs work -----------------------------------------------------------------------------------------------_FLAGIAEHFIUABJDHAWOFH
 
     mainTitle = Label(AddBookingWin, text="Add a Booking", font= Heading)
     mainTitle.pack()
@@ -94,9 +185,14 @@ def addBookingWindow():
     selectDatebtn = Button(AddBookingWin, text="View Available Rooms", font=BTN, command=selectDate)
     selectDatebtn.pack()
 
-    for b in listRoom:
-        print(b.datesBooked)
+    selectRoomlbl = Label(AddBookingWin, text="The Available Rooms Are Below.", font=SH1)
+    selectRoomlbl.pack()
 
+    listRoomLB = Listbox(AddBookingWin, font=SH2)
+    listRoomLB.pack()
+
+    selectDatebtn = Button(AddBookingWin, text="Select Room", font=BTN, command=restOfBooking)
+    selectDatebtn.pack()
 
 def editBookingWindow():
     pass
