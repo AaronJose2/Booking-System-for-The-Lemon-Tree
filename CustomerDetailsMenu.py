@@ -104,7 +104,7 @@ def AddCustomerDetailsWindow():
             newCustomer = customer()
             newCustomer.customerID = CustomerIDentry.get()
             newCustomer.forename = CustomerFNameentry.get()
-            newCustomer.surname = CustomerFNameentry.get()
+            newCustomer.surname = CustomerSNameentry.get()
             newCustomer.telephoneNum = CustomerTelephoneNumentry.get()
             newCustomer.postcode = CustomerPostcodeentry.get()
             newCustomer.addressLine1 = CustomerAddressLine1entry.get()
