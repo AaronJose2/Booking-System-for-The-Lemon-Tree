@@ -5,6 +5,7 @@ from BookingsMenu import *
 from StaffDetailsMenu import *
 from HolidayMenu import *
 from RoomMenu import *
+from TimetableMenu import *
 
 def openAdminWindow():
     #creates the administrative window
@@ -22,7 +23,8 @@ def openAdminWindow():
     
     #CustomerDetailsMenubtn = Button(adminWin, text="Customer Details Menu", command=lambda: [openCustomerDetailsMenuWindow(),withdraw()] )
     #CustomerDetailsMenubtn.pack()
-    CustomerDetailsMenubtn = Button(adminWin, text="Customer Details Menu", font=BTN, command=CustomerDetailsMenuWin)
+    
+    CustomerDetailsMenubtn = Button(adminWin, text="Customer Details Menu", font=BTN, command=CustomerDetailsMenuWindow)
     CustomerDetailsMenubtn.pack()
 
     BookingsMenubtn = Button(adminWin, text="Booking Menu", font=BTN, command=openBookingMenuWindow)
@@ -37,4 +39,6 @@ def openAdminWindow():
     RoomMenubtn = Button(adminWin, text="Room Menu", font=BTN, command=openRoomMenuWindow)
     RoomMenubtn.pack()
     
+    TimetableMenubtn = Button(adminWin, text="Timetable Menu", font=BTN, command=openTimetableMenuWindow)
+    TimetableMenubtn.pack()
     

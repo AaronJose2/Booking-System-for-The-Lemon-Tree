@@ -3,7 +3,7 @@ from pickle import *
 from datastructures import *
 from FontStyleSheet import *
 
-def CustomerDetailsMenuWin():
+def CustomerDetailsMenuWindow():
     #creates the Customer Details Menu window
     customerDetailsMenuWin = Toplevel()
     customerDetailsMenuWin.geometry("400x400")
