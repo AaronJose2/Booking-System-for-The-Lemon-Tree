@@ -58,6 +58,8 @@ def addBookingWindow():
                     newBooking.breakfastRequired = True
                 else:
                     newBooking.breakfastRequired = False
+                
+                newBooking.datesBooked = daylist
 
                 listBooking.append(newBooking)
                 AddRestOfBookingWin.withdraw()
@@ -148,24 +150,44 @@ def addBookingWindow():
 
         delta = end_date - start_date   # returns difference in dates
 
-        try:
-            daylist = listBooking[0].datesBooked
-        except:
-            daylist = []
+        #try: # 
+            #daylist = listBooking[0].datesBooked
+        #except:
+        daylist = []
 
         for i in range(delta.days + 1): # returns all of the dates between the two specified in list form
             day = start_date + timedelta(days=i) 
             day = str(day)
             daylist.append(day)
 
-        for n in daylist:
-            if len(listBooking) == 0:
-                listRoomLB.delete(0,END)
-                for room in listRoom:
-                    listRoomLB.insert(END, room.roomName + room.guestLimit + str(room.familyRoom))
-            else:
+
+        listRoomLB.delete(0,END)
+
+        if len(listBooking) == 0:
+            for room in listRoom:
+                listRoomLB.insert(END, room.roomName + room.guestLimit + str(room.familyRoom))
+        else: # the following cycles through the list of rooms and bookings checking if the current room has a booking and then checks if that booking contains a date that matches the current dates selected for booking if so the system does not added it to the listbox but if it does not match it is added to the list box
+            for n in listRoom:
                 for m in listBooking:
-                    pass # needs work -----------------------------------------------------------------------------------------------_FLAGIAEHFIUABJDHAWOFH
+                    if n.roomID == m.roomID:
+                        check = True
+                        for z in m.datesBooked:
+                            for x in daylist:
+                                print(z)
+                                print(x)
+                                
+                                if str(z) == str(x):
+                                    check = FALSE
+
+                                print(str(bool(check)))
+                                print("------------")
+                        
+                        if check == TRUE:
+                            pass
+                        else:
+                            listRoomLB.insert(END, n.roomName + n.guestLimit + str(n.familyRoom))
+                    else:
+                        listRoomLB.insert(END, n.roomName + n.guestLimit + str(n.familyRoom))
 
     mainTitle = Label(AddBookingWin, text="Add a Booking", font= Heading)
     mainTitle.pack()
