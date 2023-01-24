@@ -75,7 +75,6 @@ def openAddRoomWindow():
     familyRoombtn = Checkbutton(AddRoomWin, text="Is this a family room?", variable=familyRoomVar)
     familyRoombtn.pack()
 
-
     def addRoomFunct():
         #validation
 
@@ -87,7 +86,6 @@ def openAddRoomWindow():
             if familyRoomVar.get() == 1:
                 newRoom.familyRoom = True
             else:
-
                 newRoom.familyRoom = False
             listRoom.append(newRoom)
             AddRoomWin.withdraw()
@@ -126,7 +124,6 @@ def openEditRoomsWindow():
             rment = Entry(EditRoomWin, textvariable=roomNameentryvar, font=EB)
             rment.pack()
             roomNameentryvar.set(listRoom[index].roomName)
-            
     
             #Guest Limit
             gllbl = Label(EditRoomWin, text= "Guest Limit", font=SH1)
@@ -171,12 +168,8 @@ def openEditRoomsWindow():
                 submitbtn.pack_forget()
                 saveData()
 
-
             submitbtn = Button(EditRoomWin,text="submit changes", command = submitfunct)
             submitbtn.pack()
 
     editbtn = Button(EditRoomWin, text="Edit Record", command=editRoom)
     editbtn.pack()
-
-    
-

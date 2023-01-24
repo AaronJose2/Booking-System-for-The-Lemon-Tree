@@ -18,12 +18,6 @@ def openAdminWindow():
     mainTitle.pack()
 
     #buttons and respective subroutines that lead to new windows
-    def withdraw():
-        adminWin.withdraw()
-    
-    #CustomerDetailsMenubtn = Button(adminWin, text="Customer Details Menu", command=lambda: [openCustomerDetailsMenuWindow(),withdraw()] )
-    #CustomerDetailsMenubtn.pack()
-    
     CustomerDetailsMenubtn = Button(adminWin, text="Customer Details Menu", font=BTN, command=CustomerDetailsMenuWindow)
     CustomerDetailsMenubtn.pack()
 

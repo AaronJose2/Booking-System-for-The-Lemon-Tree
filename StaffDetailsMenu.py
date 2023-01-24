@@ -251,13 +251,11 @@ def openStaffDetailsMenuWindow():
                 staffAddressLine2entry.pack()
                 staffAddressLine2var.set(listStaff[index].staffAddressLine2)
 
-
                 staffCitylbl = Label(EditStaffWin, text="Staff City", font=SH1)
                 staffCitylbl.pack()
                 staffCityvar = StringVar()
                 staffCityentry = Entry(EditStaffWin, textvariable=staffCityvar, font=EB)
                 staffCityentry.pack()
-
                 staffCityvar.set(listStaff[index].staffCity)
 
                 def addStaffFunct():
@@ -283,7 +281,6 @@ def openStaffDetailsMenuWindow():
     
                         EditStaffWin.withdraw()
 
-
                 submitbtn = Button(EditStaffWin, text="Submit", font=BTN, command=addStaffFunct)
                 submitbtn.pack()
 
@@ -292,5 +289,3 @@ def openStaffDetailsMenuWindow():
 
     editStaffDetailsbtn = Button(staffDetailsMenuWin, text="Edit Staff Details", font=BTN, command=editStaffDetailsWindow)
     editStaffDetailsbtn.pack()
-
-

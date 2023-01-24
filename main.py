@@ -1,20 +1,15 @@
 #importing necessary modules and files
 from tkinter import *
 from datastructures import *
-
-
+from FontStyleSheet import *
+from AdministratorScreen import *
+from FrontDeskStaff import *
 loadData()
 
 # setting up the main window.
 mainWin = Tk()
 mainWin.geometry("400x400")
 mainWin.title("Main Menu")
-
-#importing the font styles from seperate file and other screens
-from FontStyleSheet import *
-from AdministratorScreen import *
-
-from FrontDeskStaff import *
 
 # main title
 mainTitle = Label(mainWin, text="Login", font=Heading)
@@ -34,6 +29,7 @@ passwordentry.pack()
 adminBool = IntVar()
 adminCheckbtn = Checkbutton(mainWin, text="Are you an Administrator", variable=adminBool)
 adminCheckbtn.pack()
+
 #submit button and function that gets the inputs from the Entry boxes and validate and verfies them.
 def getPassUserID():
     userID = userIDentry.get()
@@ -50,6 +46,5 @@ def getPassUserID():
 
 passwordbtn = Button(mainWin, text="Let me innnnn", font=BTN, command=getPassUserID)
 passwordbtn.pack()
-
 
 mainWin.mainloop()
