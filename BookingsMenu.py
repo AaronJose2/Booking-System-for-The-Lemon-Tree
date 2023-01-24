@@ -24,6 +24,7 @@ def openBookingMenuWindow():
     EditBookingbtn.pack()
 
 
+
 def viewBookingWindow():
     ViewBookingWin = Toplevel()
     ViewBookingWin.geometry("400x600")
@@ -170,19 +171,13 @@ def addBookingWindow():
             for n in listRoom:
                 for m in listBooking:
                     if n.roomID == m.roomID:
-                        check = True
+                        check = 1
                         for z in m.datesBooked:
                             for x in daylist:
-                                print(z)
-                                print(x)
-                                
                                 if str(z) == str(x):
-                                    check = FALSE
-
-                                print(str(bool(check)))
-                                print("------------")
+                                    check = 0
                         
-                        if check == TRUE:
+                        if check == 0:
                             pass
                         else:
                             listRoomLB.insert(END, n.roomName + n.guestLimit + str(n.familyRoom))
