@@ -1,9 +1,6 @@
 #importing necessary modules and files
 from tkinter import *
 from datastructures import *
-from FontStyleSheet import *
-from AdministratorScreen import *
-from FrontDeskStaff import *
 loadData()
 
 # setting up the main window.
@@ -12,10 +9,13 @@ mainWin.geometry("400x400")
 mainWin.title("Main Menu")
 
 # main title
+from FontStyleSheet import *
 mainTitle = Label(mainWin, text="Login", font=Heading)
 mainTitle.pack()
 
 #label and its respective entry for login function.
+from AdministratorScreen import *
+from FrontDeskStaff import *
 userIDlbl = Label(mainWin, text="User ID", font=SH1)
 userIDlbl.pack()
 userIDentry = Entry(mainWin, font=EB)
