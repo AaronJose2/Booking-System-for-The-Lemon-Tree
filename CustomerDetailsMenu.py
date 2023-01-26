@@ -26,14 +26,14 @@ def ViewCustomerDetailsWindow():
     global listCustomerLB
     #creates the View Customer window
     ViewCustomerWin = Toplevel()
-    ViewCustomerWin.geometry("400x400")
+    ViewCustomerWin.geometry("650x400")
     ViewCustomerWin.title("View Customer")
 
     # main title
     mainTitle = Label(ViewCustomerWin, text="View Customers", font=Heading)
     mainTitle.pack()
 
-    listCustomerLB = Listbox(ViewCustomerWin, font=SH2)
+    listCustomerLB = Listbox(ViewCustomerWin, width=75, font=SH2)
     listCustomerLB.pack()
 
     listCustomerLB.delete(0, END)
@@ -133,7 +133,7 @@ def EditCustomerDetailsWindow():
     for customer in listCustomer:
         listCustomerLB.insert(END, customer.customerID + customer.forename + customer.surname + customer.telephoneNum + customer.postcode + customer.addressLine1 + customer.addressLine2 + customer.city)
 
-    def editCustomer():
+    def editCustomer():      
         if len(listCustomerLB.curselection()) > 0:
             index = listCustomerLB.curselection()[0]
 

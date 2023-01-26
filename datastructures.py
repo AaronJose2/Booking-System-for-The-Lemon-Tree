@@ -40,7 +40,6 @@ class booking():
   checkOutDate = ""
   amountOfGuests = 0
   breakfastRequired = bool()
-  datesBooked = []
 
 
 def loadData():

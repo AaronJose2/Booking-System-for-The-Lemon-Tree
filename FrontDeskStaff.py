@@ -8,7 +8,7 @@ def openFrontDeskWindow():
     #creates the Front Desk Menu window
     frontDeskWin = Toplevel()
     frontDeskWin.geometry("400x400")
-    frontDeskWin.title("Holiday Menu")
+    frontDeskWin.title("Front Desk Menu")
     
     # main title
     mainTitle = Label(frontDeskWin, text="Front Desk Menu", font=Heading)
