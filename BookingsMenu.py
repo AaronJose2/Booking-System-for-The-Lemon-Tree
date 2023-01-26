@@ -25,14 +25,14 @@ def openBookingMenuWindow():
 
 def viewBookingWindow():
     ViewBookingWin = Toplevel()
-    ViewBookingWin.geometry("400x600")
+    ViewBookingWin.geometry("650x600")
     ViewBookingWin.title("Bookings")
 
-    listBookingLB = Listbox(ViewBookingWin, font=SH2)
+    listBookingLB = Listbox(ViewBookingWin, width=75, font=SH2)
     listBookingLB.pack()
 
-    for booking in listBooking:
-        listBookingLB.insert(END, booking.bookingID + booking.customerID + booking.roomID + booking.amountOfGuests + str(booking.breakfastRequired))
+    for booking in listBooking:     
+        listBookingLB.insert(END, booking.bookingID +  " | " + listCustomer[int(booking.customerID[2:4])].forename +  " | " + listCustomer[int(booking.customerID[2:4])].surname +  " | " + booking.checkInDate +  " | " + booking.checkOutDate +  " | " + booking.roomID)
 
 def addBookingWindow():
     AddBookingWin = Toplevel()
@@ -49,16 +49,16 @@ def addBookingWindow():
             if True == True:
                 newBooking = booking()
                 newBooking.bookingID = bookingIDent.get()
-                newBooking.roomID = roomIDent.get()
                 newBooking.customerID = CustomerIDentry.get()
+                newBooking.roomID = roomIDent.get()
+                newBooking.checkInDate = selectIDateent.get()
+                newBooking.checkOutDate = selectODateent.get()
                 newBooking.amountOfGuests = NumGuestentry.get()
 
                 if BreakReqVar.get() == 1:
                     newBooking.breakfastRequired = True
                 else:
                     newBooking.breakfastRequired = False
-                
-                newBooking.datesBooked = daylist
 
                 listBooking.append(newBooking)
                 AddRestOfBookingWin.withdraw()
@@ -167,13 +167,29 @@ def addBookingWindow():
                 for m in listBooking:
                     if n.roomID == m.roomID:
                         check = 1
-                        for z in m.datesBooked:
+                        start_date = m.checkInDate
+                        print(start_date)
+                        end_date = m.checkOutDate
+                        print(end_date)
+                        start_date = start_date.replace("/","")
+                        end_date = end_date.replace("/","")
+                        start_date = date(int(str(20)+str(start_date[4:6])), int(start_date[2:4]), int(start_date[0:2])) #reformats the data to a format that the module datetime understands but is still common sense to the user
+                        end_date = date(int(str(20)+str(end_date[4:6])), int(end_date[2:4]), int(end_date[0:2]))
+
+                        delta = end_date - start_date
+
+                        temp = []
+
+                        for i in range (delta.days + 1):
+                            day = start_date + timedelta(days=i)
+                            day = str(day)
+                            temp.append(day)
+                        
+                        for z in temp:
                             for x in daylist:
                                 if str(z) == str(x):
                                     check = 0
-                        if check == 0:
-                            pass
-                        else:
+                        if check == 1:
                             listRoomLB.insert(END, n.roomName + n.guestLimit + str(n.familyRoom))
                     else:
                         listRoomLB.insert(END, n.roomName + n.guestLimit + str(n.familyRoom))
@@ -206,4 +222,98 @@ def addBookingWindow():
     selectDatebtn.pack()
 
 def editBookingWindow():
-    pass
+    #creates the Booking Menu window
+    EditBookingDetailsWin = Toplevel()
+    EditBookingDetailsWin.geometry("650x400")
+    EditBookingDetailsWin.title("Choose a Booking")
+
+    # main title
+    mainTitle = Label(EditBookingDetailsWin, text="Choose a Booking", font=Heading)
+    mainTitle.pack()
+
+    listBookingLB = Listbox(EditBookingDetailsWin, width=75, font=SH2)
+    listBookingLB.pack()
+
+    listBookingLB.delete(0,END)
+    for booking in listBooking:     
+        listBookingLB.insert(END, booking.bookingID +  " | " + listCustomer[int(booking.customerID[2:4])].forename +  " | " + listCustomer[int(booking.customerID[2:4])].surname +  " | " + booking.checkInDate +  " | " + booking.checkOutDate +  " | " + booking.roomID)
+
+    def editBooking():
+        EditBookingWin = Toplevel()
+        EditBookingWin.geometry("400x900")
+        EditBookingWin.title("Edit Customer Details")
+
+        bookingIDlbl = Label(EditBookingWin, text="Booking ID", font=SH1)
+        bookingIDlbl.pack()
+        bookingIDVar = StringVar()
+        bookingIDent = Entry(EditBookingWin, textvariable=bookingIDVar)
+        bookingIDent.pack()
+
+        customerIDlbl = Label(EditBookingWin, text="Customer ID", font=SH1)
+        customerIDlbl.pack()
+        customerIDVar = StringVar()
+        customerIDent = Entry(EditBookingWin, textvariable=customerIDVar)
+        customerIDent.pack()
+
+        roomIDlbl = Label(EditBookingWin, text="Room ID", font=SH1)
+        roomIDlbl.pack()
+        roomIDVar = StringVar()
+        roomIDent = Entry(EditBookingWin, textvariable=roomIDVar)
+        roomIDent.pack()
+
+        checkInDatelbl = Label(EditBookingWin, text="Check In Date", font=SH1)
+        checkInDatelbl.pack()
+        checkInDateVar = StringVar()
+        checkInDateent = Entry(EditBookingWin, textvariable=checkInDateVar)
+        checkInDateent.pack()
+
+        checkOutDatelbl = Label(EditBookingWin, text="Check Out Date", font=SH1)
+        checkOutDatelbl.pack()
+        checkOutDateVar = StringVar()
+        checkOutDateent = Entry(EditBookingWin, textvariable=checkOutDateVar)
+        checkOutDateent.pack()
+
+        amountOfGuestslbl = Label(EditBookingWin, text="Amount of Guests", font=SH1)
+        amountOfGuestslbl.pack()
+        amountOfGuestsVar = StringVar()
+        amountOfGuestsent = Entry(EditBookingWin, textvariable=amountOfGuestsVar)
+        amountOfGuestsent.pack()
+
+        breakfastRequiredlbl = Label(EditBookingWin, text="Breakfast Required", font=SH1)
+        breakfastRequiredlbl.pack()
+        breakfastRequiredVar = StringVar()
+        breakfastRequiredent = Entry(EditBookingWin, textvariable=breakfastRequiredVar)
+        breakfastRequiredent.pack()
+
+        if len(listBookingLB.curselection()) > 0:
+            index = listBookingLB.curselection()[0]
+            bookingIDVar.set(listBooking[index].bookingID)
+            customerIDVar.set(listBooking[index].customerID)
+            roomIDVar.set(listBooking[index].roomID)
+            checkInDateVar.set(listBooking[index].checkInDate)
+            checkOutDateVar.set(listBooking[index].checkOutDate)
+            amountOfGuestsVar.set(listBooking[index].amountOfGuests)
+            breakfastRequiredVar.set(listBooking[index].breakfastRequired)
+
+        def submitfunct():
+                if True == True:
+                    listBooking[index].bookingID = bookingIDent.get()
+                    listBooking[index].customerID = customerIDent.get()
+                    listBooking[index].roomID = roomIDent.get()
+                    listBooking[index].checkInDate = checkInDateent.get()
+                    listBooking[index].checkOutDate = checkOutDateent.get()
+                    listBooking[index].amountOfGuests = amountOfGuestsent.get()
+                    listBooking[index].breakfastRequired = breakfastRequiredent.get()
+
+                    listBookingLB.delete(0,END)
+                    for booking in listBooking:     
+                         listBookingLB.insert(END, booking.bookingID +  " | " + listCustomer[int(booking.customerID[2:4])].forename +  " | " + listCustomer[int(booking.customerID[2:4])].surname +  " | " + booking.checkInDate +  " | " + booking.checkOutDate +  " | " + booking.roomID)
+
+                    saveData()
+                    EditBookingWin.withdraw()
+            
+        submitbtn = Button(EditBookingWin,text="submit changes", command = submitfunct)
+        submitbtn.pack()
+        
+    editbtn = Button(EditBookingDetailsWin, text="Edit Record", command=editBooking)
+    editbtn.pack()
