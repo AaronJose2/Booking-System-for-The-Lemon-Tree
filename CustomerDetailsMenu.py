@@ -155,7 +155,6 @@ def EditCustomerDetailsWindow():
             customerForenameent.pack()
             customerForenamevar.set(listCustomer[index].forename)
 
-
             customerSurnamelbl = Label(EditCustomerWin, text="Customer Surname", font=SH1)
             customerSurnamelbl.pack()
             customerSurnamevar = StringVar()
@@ -218,7 +217,6 @@ def EditCustomerDetailsWindow():
 
             submitbtn = Button(EditCustomerWin,text="submit changes", command = submitfunct)
             submitbtn.pack()
-
 
     editbtn = Button(ChooseCustomerWin, text="Edit Record", command=editCustomer)
     editbtn.pack()

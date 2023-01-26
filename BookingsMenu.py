@@ -23,8 +23,6 @@ def openBookingMenuWindow():
     EditBookingbtn = Button(BookingDetailsMenuWin, text="Edit Booking Details", font=BTN, command=editBookingWindow)
     EditBookingbtn.pack()
 
-
-
 def viewBookingWindow():
     ViewBookingWin = Toplevel()
     ViewBookingWin.geometry("400x600")
@@ -151,9 +149,6 @@ def addBookingWindow():
 
         delta = end_date - start_date   # returns difference in dates
 
-        #try: # 
-            #daylist = listBooking[0].datesBooked
-        #except:
         daylist = []
 
         for i in range(delta.days + 1): # returns all of the dates between the two specified in list form
@@ -161,12 +156,12 @@ def addBookingWindow():
             day = str(day)
             daylist.append(day)
 
-
         listRoomLB.delete(0,END)
 
         if len(listBooking) == 0:
             for room in listRoom:
                 listRoomLB.insert(END, room.roomName + room.guestLimit + str(room.familyRoom))
+
         else: # the following cycles through the list of rooms and bookings checking if the current room has a booking and then checks if that booking contains a date that matches the current dates selected for booking if so the system does not added it to the listbox but if it does not match it is added to the list box
             for n in listRoom:
                 for m in listBooking:
@@ -176,7 +171,6 @@ def addBookingWindow():
                             for x in daylist:
                                 if str(z) == str(x):
                                     check = 0
-                        
                         if check == 0:
                             pass
                         else:
