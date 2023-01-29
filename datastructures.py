@@ -41,21 +41,28 @@ class booking():
   amountOfGuests = 0
   breakfastRequired = bool()
 
+class holiday():
+  holidayID = ""
+  name = ""
+  startDate = ""
+  endDate = ""
 
 def loadData():
-  global listStaff, listCustomer, listRoom, listBooking
+  global listStaff, listCustomer, listRoom, listBooking, listHoliday
   try:
     fh = open("LemonTree.pickle","rb")
     listStaff = load(fh)
     listCustomer = load(fh)
     listRoom = load(fh)
     listBooking =  load(fh)
+    listHoliday = load(fh)
     fh.close()
   except:
     listStaff = []
     listCustomer = []
     listRoom = []
     listBooking = []
+    listHoliday = []
 
 def saveData():
   fh = open("LemonTree.pickle","wb")
@@ -63,4 +70,5 @@ def saveData():
   dump(listCustomer, fh)
   dump(listRoom, fh)
   dump(listBooking, fh)
+  dump(listHoliday, fh)
   fh.close()

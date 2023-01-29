@@ -99,7 +99,6 @@ def AddCustomerDetailsWindow():
 
     def addCustomerFunct():
         #validation
-
         if True == True:
             newCustomer = customer()
             newCustomer.customerID = CustomerIDentry.get()
