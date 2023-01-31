@@ -31,8 +31,11 @@ def viewBookingWindow():
     listBookingLB = Listbox(ViewBookingWin, width=75, font=SH2)
     listBookingLB.pack()
 
-    for booking in listBooking:     
-        listBookingLB.insert(END, booking.bookingID +  " | " + listCustomer[int(booking.customerID[2:4])].forename +  " | " + listCustomer[int(booking.customerID[2:4])].surname +  " | " + booking.checkInDate +  " | " + booking.checkOutDate +  " | " + booking.roomID)
+    roomIDlbl = Label(ViewBookingWin, text= "View Bookings", font=SH1)
+    roomIDlbl.pack()
+
+    for booking in listBooking:  
+        listBookingLB.insert(END, booking.bookingID +  " | " + listCustomer[int(booking.customerID[3:5])-1].forename +  " | " + listCustomer[int(booking.customerID[3:5])-1].surname +  " | " + booking.checkInDate +  " | " + booking.checkOutDate +  " | " + booking.roomID)
 
 def addBookingWindow():
     AddBookingWin = Toplevel()
@@ -235,8 +238,8 @@ def editBookingWindow():
     listBookingLB.pack()
 
     listBookingLB.delete(0,END)
-    for booking in listBooking:     
-        listBookingLB.insert(END, booking.bookingID +  " | " + listCustomer[int(booking.customerID[2:4])].forename +  " | " + listCustomer[int(booking.customerID[2:4])].surname +  " | " + booking.checkInDate +  " | " + booking.checkOutDate +  " | " + booking.roomID)
+    for booking in listBooking:  
+        listBookingLB.insert(END, booking.bookingID +  " | " + listCustomer[int(booking.customerID[3:5])-1].forename +  " | " + listCustomer[int(booking.customerID[3:5])-1].surname +  " | " + booking.checkInDate +  " | " + booking.checkOutDate +  " | " + booking.roomID)
 
     def editBooking():
         EditBookingWin = Toplevel()
@@ -306,8 +309,8 @@ def editBookingWindow():
                     listBooking[index].breakfastRequired = breakfastRequiredent.get()
 
                     listBookingLB.delete(0,END)
-                    for booking in listBooking:     
-                         listBookingLB.insert(END, booking.bookingID +  " | " + listCustomer[int(booking.customerID[2:4])].forename +  " | " + listCustomer[int(booking.customerID[2:4])].surname +  " | " + booking.checkInDate +  " | " + booking.checkOutDate +  " | " + booking.roomID)
+                    for booking in listBooking:  
+                        listBookingLB.insert(END, booking.bookingID +  " | " + listCustomer[int(booking.customerID[3:5])-1].forename +  " | " + listCustomer[int(booking.customerID[3:5])-1].surname +  " | " + booking.checkInDate +  " | " + booking.checkOutDate +  " | " + booking.roomID)
 
                     saveData()
                     EditBookingWin.withdraw()
