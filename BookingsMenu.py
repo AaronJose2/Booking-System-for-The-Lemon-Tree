@@ -1,19 +1,26 @@
+# imports the relevant modules and files that are necessary
 from tkinter import *
 from pickle import *
 from datastructures import *
 from FontStyleSheet import *
 from datetime import date, timedelta
 
+#This subroutine and the window contained within will act as a sort of navigation page for administrative and normal users. 
+#The window's main function is to let the user navigate to the relevant functions that would fall under the Bookings umbrella term.
+#e.g. adding/viewing/editing/deleting booking details.
 def openBookingMenuWindow():
-    #creates the Booking Menu window
+    #Creates the New window named Administrative Menu. 
     BookingDetailsMenuWin = Toplevel()
     BookingDetailsMenuWin.geometry("400x400")
     BookingDetailsMenuWin.title("Booking Menu")
 
-    # main title
+    #Creates a Title/Heading for the Window that says Booking Menu.
+    #It is formatted to the font style Heading.
     mainTitle = Label(BookingDetailsMenuWin, text="Booking Menu", font=Heading)
     mainTitle.pack()
 
+    #The code below creates and packs buttons to the screen that once pressed activate different subroutines that reside further down in the file.
+    #The buttons are formatted with the style BTN which is abreviated from BUTTON.
     viewBookingbtn = Button(BookingDetailsMenuWin, text="View Booking", font=BTN, command=viewBookingWindow)
     viewBookingbtn.pack()
     
@@ -23,32 +30,46 @@ def openBookingMenuWindow():
     EditBookingbtn = Button(BookingDetailsMenuWin, text="Edit Booking Details", font=BTN, command=editBookingWindow)
     EditBookingbtn.pack()
 
+#This subroutine and the window contained within will display the bookings to the user
+#e.g. adding/viewing/editing/deleting booking details.
 def viewBookingWindow():
+    #Creates a new Window named Bookings
     ViewBookingWin = Toplevel()
     ViewBookingWin.geometry("650x600")
     ViewBookingWin.title("Bookings")
 
+    #Creates a Title/Heading for the Window that says View Bookings.
+    #It is formatted to the font style Heading.
+    roomIDlbl = Label(ViewBookingWin, text= "View Bookings", font=Heading)
+    roomIDlbl.pack()
+
+    # This creates a List Box which will visualise the 3 dimensional array for the user.
+    # Using this the user will be able to select a record in that array.
     listBookingLB = Listbox(ViewBookingWin, width=75, font=SH2)
     listBookingLB.pack()
 
-    roomIDlbl = Label(ViewBookingWin, text= "View Bookings", font=SH1)
-    roomIDlbl.pack()
-
+    #This for loop iterates through the items in the array listBooking and inserts the data within that record into the list box
     for booking in listBooking:  
         listBookingLB.insert(END, booking.bookingID +  " | " + listCustomer[int(booking.customerID[3:5])-1].forename +  " | " + listCustomer[int(booking.customerID[3:5])-1].surname +  " | " + booking.checkInDate +  " | " + booking.checkOutDate +  " | " + booking.roomID)
 
+#This subroutine and the other subroutines and windows contained within will let the user add bookings to the save file.
 def addBookingWindow():
+    #Creates a new Window named Add Booking
     AddBookingWin = Toplevel()
     AddBookingWin.geometry("400x600")
-    AddBookingWin.title("Choose a Date and Room")
+    AddBookingWin.title("Add Booking")
 
     def restOfBooking():
+        #Creates a new Window named Ender Details
         AddRestOfBookingWin = Toplevel()
         AddRestOfBookingWin.geometry("400x600")
         AddRestOfBookingWin.title("Enter Details")
-
+        
+        #When called the following fuction creates a new list using the booking class and then populates it with the booking data.
+        #This data is then appended to the main list.
+        #The function saveData() is then called which saves the list to the file.
         def savefunct():
-            #validation
+            #Validation
             if True == True:
                 newBooking = booking()
                 newBooking.bookingID = bookingIDent.get()
@@ -58,6 +79,7 @@ def addBookingWindow():
                 newBooking.checkOutDate = selectODateent.get()
                 newBooking.amountOfGuests = NumGuestentry.get()
 
+                #Changes the numerical answer into a boolean one.
                 if BreakReqVar.get() == 1:
                     newBooking.breakfastRequired = True
                 else:
@@ -68,9 +90,15 @@ def addBookingWindow():
                 AddBookingWin.withdraw()
                 saveData()
 
+        #Checks to see if the user has slected something from the listbox
         if len(listRoomLB.curselection()) > 0:
+            #getting an index number for the selected piece of data
             index = listRoomLB.curselection()[0]
 
+            #The following code generates a label and entry for the booking data with a few exceptions
+            #The first of which is here at Room ID.
+            #Room ID does not need to be entered as it is already known as it was selected before, so we take that selection and get the roomID
+            #It is then set to a String var and placed on the screen to avoid confusion with the user.
             roomIDlbl = Label(AddRestOfBookingWin, text= "Room ID", font=SH1)
             roomIDlbl.pack()
             roomIDentryvar = StringVar()
@@ -78,7 +106,10 @@ def addBookingWindow():
             roomIDent.pack()
             roomIDentryvar.set(listRoom[index].roomID)
 
-            def genreateRoomID():
+            #Another Exception is the function that creates an ID for the Booking
+            #These subroutines simply get the length of the booking and adds one to get the place in the list that this booking would be
+            #and that number is padded out with 0s to make it standardized.
+            def genreateBookingID():
                 prefix = "BG"
                 ID = prefix + str(len(listBooking)+1).zfill(3)
                 bookingIDvar.set(ID)
@@ -88,9 +119,11 @@ def addBookingWindow():
             bookingIDvar = StringVar()
             bookingIDent= Entry(AddRestOfBookingWin, textvariable=bookingIDvar, font=EB)
             bookingIDent.pack()
-            submitbtn = Button(AddRestOfBookingWin, text="Generate Booking ID", font=BTN, command=genreateRoomID)
+            submitbtn = Button(AddRestOfBookingWin, text="Generate Booking ID", font=BTN, command=genreateBookingID)
             submitbtn.pack()
-
+            
+            #This subroutine contains a window with a listbox that allows the user to select a customerID.
+            #The reason a listbox is used is for user ease
             def customerIDSelection():
                 CustomerIDMenuWin = Toplevel()
                 CustomerIDMenuWin.geometry("400x400")
@@ -138,36 +171,48 @@ def addBookingWindow():
             submitbtn = Button(AddRestOfBookingWin, text= "Select", font=BTN, command=savefunct)
             submitbtn.pack()
 
+    #The button with the name view available rooms which is created below activates this subroutine
+    #The purpose of this subroutine is to process the start and end date and generate a list populated with the dates between those two dates
+    #This is possible thanks to the datetime module which was imported at the begining of this file
     def selectDate():
         global daylist
         start_date = selectIDateent.get()
         end_date = selectODateent.get()
 
-        #replace with recursion loop
+        #the below removes the formatting of the date that the user would have inputted into the data.
+        #In the future this will be replaced with a recurrsion loop
         start_date = start_date.replace("/","")  #removes / from the data that the user enters
         end_date = end_date.replace("/","")
-
-        start_date = date(int(str(20)+str(start_date[4:6])), int(start_date[2:4]), int(start_date[0:2])) #reformats the data to a format that the module datetime understands but is still common sense to the user
+        #The following variable reassignments are needed due to the module datetime uses a different date structure than the english language would use.
+        start_date = date(int(str(20)+str(start_date[4:6])), int(start_date[2:4]), int(start_date[0:2]))
         end_date = date(int(str(20)+str(end_date[4:6])), int(end_date[2:4]), int(end_date[0:2]))
 
         delta = end_date - start_date   # returns difference in dates
 
+        #the list which will contain all the dates between the start and end dates
         daylist = []
-
-        for i in range(delta.days + 1): # returns all of the dates between the two specified in list form
+        # returns all of the dates between the two specified in list form and appends them to daylist
+        for i in range(delta.days + 1): 
             day = start_date + timedelta(days=i) 
             day = str(day)
             daylist.append(day)
 
+        #Clears the avaiable rooms listbox incase the function was ran before and changed and repopulates with the correct rooms
         listRoomLB.delete(0,END)
-
+        #If the list of bookings is empty it populates with all the rooms.
         if len(listBooking) == 0:
             for room in listRoom:
                 listRoomLB.insert(END, room.roomName + room.guestLimit + str(room.familyRoom))
-
-        else: # the following cycles through the list of rooms and bookings checking if the current room has a booking and then checks if that booking contains a date that matches the current dates selected for booking if so the system does not added it to the listbox but if it does not match it is added to the list box
+        # however if it is has data within it the following code is run.
+        # Then checks if that booking contains a date that matches the current dates selected for booking
+        # If so the system does not added it to the listbox but if it does not match it is added to the list box
+        else: 
             for n in listRoom:
                 for m in listBooking:
+                    # It cycles through the list of rooms and bookings checking if the current room has a booking.
+                    # A list of dates between the check in and checkout dates is generated by the same code that we saw before.
+                    # This List is then checked against the list of dates for the new booking.
+                    # If there is a match between the two the room is skipped and it moves to the next room.
                     if n.roomID == m.roomID:
                         check = 1
                         start_date = m.checkInDate
@@ -176,7 +221,7 @@ def addBookingWindow():
                         print(end_date)
                         start_date = start_date.replace("/","")
                         end_date = end_date.replace("/","")
-                        start_date = date(int(str(20)+str(start_date[4:6])), int(start_date[2:4]), int(start_date[0:2])) #reformats the data to a format that the module datetime understands but is still common sense to the user
+                        start_date = date(int(str(20)+str(start_date[4:6])), int(start_date[2:4]), int(start_date[0:2]))
                         end_date = date(int(str(20)+str(end_date[4:6])), int(end_date[2:4]), int(end_date[0:2]))
 
                         delta = end_date - start_date
@@ -192,14 +237,18 @@ def addBookingWindow():
                             for x in daylist:
                                 if str(z) == str(x):
                                     check = 0
+                                    
                         if check == 1:
                             listRoomLB.insert(END, n.roomName + n.guestLimit + str(n.familyRoom))
                     else:
                         listRoomLB.insert(END, n.roomName + n.guestLimit + str(n.familyRoom))
 
+    #Creates a Title/Heading for the Window that says Add a Booking.
+    #It is formatted to the font style Heading.
     mainTitle = Label(AddBookingWin, text="Add a Booking", font= Heading)
     mainTitle.pack()
 
+    #Creates a Label and Entry box that asks the user to input the checkin and out dates and allows the user to input the data respectively.
     selectIDatelbl = Label(AddBookingWin, text="Select a Check in Date", font=SH1)
     selectIDatelbl.pack()
 
@@ -212,6 +261,7 @@ def addBookingWindow():
     selectODateent = Entry(AddBookingWin, font=EB)
     selectODateent.pack()
 
+    #This button activates a subroutine that allows the user to view the available rooms.
     selectDatebtn = Button(AddBookingWin, text="View Available Rooms", font=BTN, command=selectDate)
     selectDatebtn.pack()
 
@@ -224,6 +274,11 @@ def addBookingWindow():
     selectDatebtn = Button(AddBookingWin, text="Select Room", font=BTN, command=restOfBooking)
     selectDatebtn.pack()
 
+
+    #This subroutine and the window contained within will act as a sort of navigation page for administrative and normal users. 
+    #The window's main function is to let the user navigate to the relevant functions that would fall under the Bookings umbrella term.
+    #e.g. adding/viewing/editing/deleting booking details.
+    #Creates the New window named Administrative Menu. 
 def editBookingWindow():
     #creates the Booking Menu window
     EditBookingDetailsWin = Toplevel()
