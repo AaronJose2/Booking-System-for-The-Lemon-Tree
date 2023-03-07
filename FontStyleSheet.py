@@ -1,6 +1,6 @@
 from tkinter.font import Font
 
-Heading = Font(
+Heading =  Font(
     family = "Times",
     size = 30,
     weight = "bold",

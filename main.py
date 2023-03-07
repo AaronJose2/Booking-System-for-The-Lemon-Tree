@@ -1,15 +1,16 @@
 #importing necessary modules and files
 from tkinter import *
 from datastructures import *
+
 loadData()
 
 # setting up the main window.
 mainWin = Tk()
 mainWin.geometry("400x400")
-mainWin.title("Main Menu")
+mainWin.title("Main Menu")  
 
-# main title
 from FontStyleSheet import *
+# main title
 mainTitle = Label(mainWin, text="Login", font=Heading)
 mainTitle.pack()
 
@@ -36,7 +37,7 @@ def getPassUserID():
     password = passwordentry.get()
 
     if adminBool.get() == 1:
-        #validation and verification.
+        # add validation and verification of password and user name here for final implementation
         print(userID, password)
         mainWin.withdraw()
         openAdminWindow()

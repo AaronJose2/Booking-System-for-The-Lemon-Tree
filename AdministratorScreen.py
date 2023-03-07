@@ -1,3 +1,4 @@
+# imports the relevant modules and files that are necessary
 from tkinter import *
 from FontStyleSheet import *
 from CustomerDetailsMenu import *
@@ -8,16 +9,21 @@ from RoomMenu import *
 from TimetableMenu import *
 
 def openAdminWindow():
-    #creates the administrative window
+    #Creates the New window named Administrative Menu. 
+    #This window will act as a sort of home/landing page for administrative users. 
+    #The window's main function is to let the user navigate to the relevant functions of the program.
+    #e.g. adding/viewing/editing/deleting booking/customer/staff/room/holiday details 
     adminWin = Toplevel()
     adminWin.geometry("400x400")
     adminWin.title("Administrative Menu")
 
-    # main title
+    #Creates a Title/Heading for the Window that says Administrative Window
+    #It is formatted to the font style Heading
     mainTitle = Label(adminWin, text="Administrative Window", font=Heading)
     mainTitle.pack()
 
-    #buttons and respective subroutines that lead to new windows
+    #The below creates and packs buttons to the screen that once pressed activate different subroutines that reside in other files
+    #The buttons are formatted with the style BTN which is abreviated from BUTTON
     CustomerDetailsMenubtn = Button(adminWin, text="Customer Details Menu", font=BTN, command=CustomerDetailsMenuWindow)
     CustomerDetailsMenubtn.pack()
 

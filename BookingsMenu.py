@@ -1,14 +1,19 @@
 # imports the relevant modules and files that are necessary
 from tkinter import *
+from tkinter import nametowidget, winfo_toplevel
 from pickle import *
 from datastructures import *
 from FontStyleSheet import *
+from ListboxSave import *
 from datetime import date, timedelta
 
 #This subroutine and the window contained within will act as a sort of navigation page for administrative and normal users. 
 #The window's main function is to let the user navigate to the relevant functions that would fall under the Bookings umbrella term.
 #e.g. adding/viewing/editing/deleting booking details.
+
 def openBookingMenuWindow():
+    global viewBookingLB
+
     #Creates the New window named Administrative Menu. 
     BookingDetailsMenuWin = Toplevel()
     BookingDetailsMenuWin.geometry("400x400")
@@ -30,6 +35,12 @@ def openBookingMenuWindow():
     EditBookingbtn = Button(BookingDetailsMenuWin, text="Edit Booking Details", font=BTN, command=editBookingWindow)
     EditBookingbtn.pack()
 
+
+    
+
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 #This subroutine and the window contained within will display the bookings to the user
 #e.g. adding/viewing/editing/deleting booking details.
 def viewBookingWindow():
@@ -44,16 +55,19 @@ def viewBookingWindow():
     roomIDlbl.pack()
 
     # This creates a List Box which will visualise the 3 dimensional array for the user.
-    # Using this the user will be able to select a record in that array.
-    listBookingLB = Listbox(ViewBookingWin, width=75, font=SH2)
-    listBookingLB.pack()
+    # Using this the user will be able to select a record in that array.    
+    window = nametowidget(winfo_toplevel())
+    viewBookingLB = Listbox(window, width=75, font=SH2)
+    viewBookingLB.pack()
 
-    #This for loop iterates through the items in the array listBooking and inserts the data within that record into the list box
-    for booking in listBooking:  
-        listBookingLB.insert(END, booking.bookingID +  " | " + listCustomer[int(booking.customerID[3:5])-1].forename +  " | " + listCustomer[int(booking.customerID[3:5])-1].surname +  " | " + booking.checkInDate +  " | " + booking.checkOutDate +  " | " + booking.roomID)
+    viewBookingLBSave(viewBookingLB)
+
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #This subroutine and the other subroutines and windows contained within will let the user add bookings to the save file.
 def addBookingWindow():
+    global addBookingLB
     #Creates a new Window named Add Booking
     AddBookingWin = Toplevel()
     AddBookingWin.geometry("400x600")
@@ -91,9 +105,9 @@ def addBookingWindow():
                 saveData()
 
         #Checks to see if the user has slected something from the listbox
-        if len(listRoomLB.curselection()) > 0:
+        if len(addBookingLB.curselection()) > 0:
             #getting an index number for the selected piece of data
-            index = listRoomLB.curselection()[0]
+            index = addBookingLB.curselection()[0]
 
             #The following code generates a label and entry for the booking data with a few exceptions
             #The first of which is here at Room ID.
@@ -198,11 +212,10 @@ def addBookingWindow():
             daylist.append(day)
 
         #Clears the avaiable rooms listbox incase the function was ran before and changed and repopulates with the correct rooms
-        listRoomLB.delete(0,END)
-        #If the list of bookings is empty it populates with all the rooms.
-        if len(listBooking) == 0:
-            for room in listRoom:
-                listRoomLB.insert(END, room.roomName + room.guestLimit + str(room.familyRoom))
+        addBookingLB.delete(0,END)
+
+        for room in listRoom:
+            addBookingLB.insert(END, room.roomName + room.guestLimit + str(room.familyRoom))
         # however if it is has data within it the following code is run.
         # Then checks if that booking contains a date that matches the current dates selected for booking
         # If so the system does not added it to the listbox but if it does not match it is added to the list box
@@ -239,9 +252,9 @@ def addBookingWindow():
                                     check = 0
                                     
                         if check == 1:
-                            listRoomLB.insert(END, n.roomName + n.guestLimit + str(n.familyRoom))
+                            addBookingLB.insert(END, n.roomName + n.guestLimit + str(n.familyRoom))
                     else:
-                        listRoomLB.insert(END, n.roomName + n.guestLimit + str(n.familyRoom))
+                        addBookingLB.insert(END, n.roomName + n.guestLimit + str(n.familyRoom))
 
     #Creates a Title/Heading for the Window that says Add a Booking.
     #It is formatted to the font style Heading.
@@ -268,8 +281,8 @@ def addBookingWindow():
     selectRoomlbl = Label(AddBookingWin, text="The Available Rooms Are Below.", font=SH1)
     selectRoomlbl.pack()
 
-    listRoomLB = Listbox(AddBookingWin, font=SH2)
-    listRoomLB.pack()
+    addBookingLB = Listbox(AddBookingWin, font=SH2)
+    addBookingLB.pack()
 
     selectDatebtn = Button(AddBookingWin, text="Select Room", font=BTN, command=restOfBooking)
     selectDatebtn.pack()
@@ -278,8 +291,13 @@ def addBookingWindow():
     #This subroutine and the window contained within will act as a sort of navigation page for administrative and normal users. 
     #The window's main function is to let the user navigate to the relevant functions that would fall under the Bookings umbrella term.
     #e.g. adding/viewing/editing/deleting booking details.
-    #Creates the New window named Administrative Menu. 
+    #Creates the New window named Administrative Menu.
+ 
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 def editBookingWindow():
+    global editBookingLB
     #creates the Booking Menu window
     EditBookingDetailsWin = Toplevel()
     EditBookingDetailsWin.geometry("650x400")
@@ -289,14 +307,13 @@ def editBookingWindow():
     mainTitle = Label(EditBookingDetailsWin, text="Choose a Booking", font=Heading)
     mainTitle.pack()
 
-    listBookingLB = Listbox(EditBookingDetailsWin, width=75, font=SH2)
-    listBookingLB.pack()
-
-    listBookingLB.delete(0,END)
-    for booking in listBooking:  
-        listBookingLB.insert(END, booking.bookingID +  " | " + listCustomer[int(booking.customerID[3:5])-1].forename +  " | " + listCustomer[int(booking.customerID[3:5])-1].surname +  " | " + booking.checkInDate +  " | " + booking.checkOutDate +  " | " + booking.roomID)
+    editBookingLB = Listbox(EditBookingDetailsWin, width=75, font=SH2)
+    editBookingLB.pack()
+    
+    editBookingLBSave(editBookingLB)
 
     def editBooking():
+        #creates the entry boxes that are going to be populated from the data set that is chosen(highlighted) by the user.
         EditBookingWin = Toplevel()
         EditBookingWin.geometry("400x900")
         EditBookingWin.title("Edit Customer Details")
@@ -342,9 +359,9 @@ def editBookingWindow():
         breakfastRequiredVar = StringVar()
         breakfastRequiredent = Entry(EditBookingWin, textvariable=breakfastRequiredVar)
         breakfastRequiredent.pack()
-
-        if len(listBookingLB.curselection()) > 0:
-            index = listBookingLB.curselection()[0]
+        # The actual population of the entry boxes.
+        if len(editBookingLB.curselection()) > 0:
+            index = editBookingLB.curselection()[0]
             bookingIDVar.set(listBooking[index].bookingID)
             customerIDVar.set(listBooking[index].customerID)
             roomIDVar.set(listBooking[index].roomID)
@@ -353,6 +370,7 @@ def editBookingWindow():
             amountOfGuestsVar.set(listBooking[index].amountOfGuests)
             breakfastRequiredVar.set(listBooking[index].breakfastRequired)
 
+        # This function saves all the data to the save file.
         def submitfunct():
                 if True == True:
                     listBooking[index].bookingID = bookingIDent.get()
@@ -363,9 +381,7 @@ def editBookingWindow():
                     listBooking[index].amountOfGuests = amountOfGuestsent.get()
                     listBooking[index].breakfastRequired = breakfastRequiredent.get()
 
-                    listBookingLB.delete(0,END)
-                    for booking in listBooking:  
-                        listBookingLB.insert(END, booking.bookingID +  " | " + listCustomer[int(booking.customerID[3:5])-1].forename +  " | " + listCustomer[int(booking.customerID[3:5])-1].surname +  " | " + booking.checkInDate +  " | " + booking.checkOutDate +  " | " + booking.roomID)
+                    # BookingsLBSave()
 
                     saveData()
                     EditBookingWin.withdraw()

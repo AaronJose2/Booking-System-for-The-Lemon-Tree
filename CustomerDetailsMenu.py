@@ -23,7 +23,7 @@ def CustomerDetailsMenuWindow():
     EditCustomerbtn.pack()
 
 def ViewCustomerDetailsWindow():
-    global listCustomerLB
+    global VClistCustomerLB
     #creates the View Customer window
     ViewCustomerWin = Toplevel()
     ViewCustomerWin.geometry("650x400")
@@ -33,12 +33,11 @@ def ViewCustomerDetailsWindow():
     mainTitle = Label(ViewCustomerWin, text="View Customers", font=Heading)
     mainTitle.pack()
 
-    listCustomerLB = Listbox(ViewCustomerWin, width=75, font=SH2)
-    listCustomerLB.pack()
+    VClistCustomerLB = Listbox(ViewCustomerWin, width=75, font=SH2)
+    VClistCustomerLB.pack()
 
-    listCustomerLB.delete(0, END)
     for customer in listCustomer:
-        listCustomerLB.insert(END, customer.customerID + customer.forename + customer.surname + customer.telephoneNum + customer.postcode + customer.addressLine1 + customer.addressLine2 + customer.city)
+        VClistCustomerLB.insert(END, customer.customerID + customer.forename + customer.surname + customer.telephoneNum + customer.postcode + customer.addressLine1 + customer.addressLine2 + customer.city)
 
 def AddCustomerDetailsWindow():
     #creates the View Customer window
@@ -59,8 +58,7 @@ def AddCustomerDetailsWindow():
     CustomerIDvar = StringVar()
     CustomerIDentry= Entry(AddCustomerWin, textvariable=CustomerIDvar, font=EB)
     CustomerIDentry.pack()
-    submitbtn = Button(AddCustomerWin, text="Generate CustomerID", font=BTN, command=genreateCustomerID)
-    submitbtn.pack()
+    genreateCustomerID()
 
     CustomerFNamelbl = Label(AddCustomerWin, text="Customer First Name", font=SH1)
     CustomerFNamelbl.pack()
@@ -111,6 +109,9 @@ def AddCustomerDetailsWindow():
             newCustomer.city = CustomerCityentry.get()
             listCustomer.append(newCustomer)
             AddCustomerWin.withdraw()
+            
+            VClistCustomerLB.insert(END, newCustomer.customerID + newCustomer.forename + newCustomer.surname + newCustomer.telephoneNum + newCustomer.postcode + newCustomer.addressLine1 + newCustomer.addressLine2 + newCustomer.city)
+
             saveData()
 
     submitbtn = Button(AddCustomerWin, text="Submit", font=BTN, command=addCustomerFunct)
@@ -125,16 +126,16 @@ def EditCustomerDetailsWindow():
     mainTitle = Label(ChooseCustomerWin, text="Edit Customers", font=Heading)
     mainTitle.pack()
 
-    listCustomerLB = Listbox(ChooseCustomerWin, font=SH2)
-    listCustomerLB.pack()
+    EClistCustomerLB = Listbox(ChooseCustomerWin, width=75, font=SH2)
+    EClistCustomerLB.pack()
 
-    listCustomerLB.delete(0,END)
+    EClistCustomerLB.delete(0,END)
     for customer in listCustomer:
-        listCustomerLB.insert(END, customer.customerID + customer.forename + customer.surname + customer.telephoneNum + customer.postcode + customer.addressLine1 + customer.addressLine2 + customer.city)
+        EClistCustomerLB.insert(END, customer.customerID + customer.forename + customer.surname + customer.telephoneNum + customer.postcode + customer.addressLine1 + customer.addressLine2 + customer.city)
 
     def editCustomer():      
-        if len(listCustomerLB.curselection()) > 0:
-            index = listCustomerLB.curselection()[0]
+        if len(EClistCustomerLB.curselection()) > 0:
+            index = EClistCustomerLB.curselection()[0]
 
             EditCustomerWin = Toplevel()
             EditCustomerWin.geometry("400x900")
@@ -207,9 +208,13 @@ def EditCustomerDetailsWindow():
                     listCustomer[index].addressLine2 = customerAddressLine2ent.get()
                     listCustomer[index].city = customerCityent.get()
 
-                    listCustomerLB.delete(0,END)
+                    EClistCustomerLB.delete(0,END)
                     for customer in listCustomer:
-                        listCustomerLB.insert(END, customer.customerID + customer.forename + customer.surname + customer.telephoneNum + customer.postcode + customer.addressLine1 + customer.addressLine2 + customer.city)
+                        EClistCustomerLB.insert(END, customer.customerID + customer.forename + customer.surname + customer.telephoneNum + customer.postcode + customer.addressLine1 + customer.addressLine2 + customer.city)
+
+                    VClistCustomerLB.delete(0, END)
+                    for customer in listCustomer:
+                        VClistCustomerLB.insert(END, customer.customerID + customer.forename + customer.surname + customer.telephoneNum + customer.postcode + customer.addressLine1 + customer.addressLine2 + customer.city)
 
                     saveData()
                     EditCustomerWin.withdraw()
