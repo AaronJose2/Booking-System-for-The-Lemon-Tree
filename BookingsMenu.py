@@ -1,6 +1,6 @@
 # imports the relevant modules and files that are necessary
 from tkinter import *
-from tkinter import nametowidget, winfo_toplevel
+# from tkinter import nametowidget, winfo_toplevel
 from pickle import *
 from datastructures import *
 from FontStyleSheet import *
@@ -34,9 +34,6 @@ def openBookingMenuWindow():
 
     EditBookingbtn = Button(BookingDetailsMenuWin, text="Edit Booking Details", font=BTN, command=editBookingWindow)
     EditBookingbtn.pack()
-
-
-    
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
