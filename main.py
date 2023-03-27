@@ -33,10 +33,11 @@ adminCheckbtn.pack()
 
 #submit button and function that gets the inputs from the Entry boxes and validate and verfies them.
 def getPassUserID():
+    global adminBool
     userID = userIDentry.get()
     password = passwordentry.get()
 
-    if adminBool.get() == 1:
+    if True:
         # add validation and verification of password and user name here for final implementation
         print(userID, password)
         mainWin.withdraw()
@@ -45,7 +46,7 @@ def getPassUserID():
         mainWin.withdraw()
         openFrontDeskWindow()
 
-passwordbtn = Button(mainWin, text="Let me innnnn", font=BTN, command=getPassUserID)
+passwordbtn = Button(mainWin, text="Login", font=BTN, command=getPassUserID)
 passwordbtn.pack()
 
 mainWin.mainloop()

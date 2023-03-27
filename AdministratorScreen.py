@@ -39,6 +39,6 @@ def openAdminWindow():
     RoomMenubtn = Button(adminWin, text="Room Menu", font=BTN, command=openRoomMenuWindow)
     RoomMenubtn.pack()
     
-    TimetableMenubtn = Button(adminWin, text="Timetable Menu", font=BTN, command=openTimetableMenuWindow)
+    TimetableMenubtn = Button(adminWin, text="Generate Timetable", font=BTN, command=openTimetableMenuWindow)
     TimetableMenubtn.pack()
     

@@ -1,88 +1,3 @@
-from tkinter import *
-from pickle import *
-from datastructures import *
-from FontStyleSheet import *
-
-def openRoomMenuWindow():
-    #creates the Room Menu window
-    RoomMenuWin = Toplevel()
-    RoomMenuWin.geometry("400x400")
-    RoomMenuWin.title("Room Menu")
-    
-    # main title
-    mainTitle = Label(RoomMenuWin, text="Room Menu", font=Heading)
-    mainTitle.pack()
-    
-    AddRoombtn = Button(RoomMenuWin, text="Add a Room", font=BTN, command=openAddRoomWindow)
-    AddRoombtn.pack()
-
-    EditRoombtn = Button(RoomMenuWin, text="View and Edit Rooms", font=BTN, command=openEditRoomWindow)
-    EditRoombtn.pack()
-
-
-def openAddRoomWindow():
-    #creates the View Room window
-    AddRoomWin = Toplevel()
-    AddRoomWin.geometry("400x400")
-    AddRoomWin.title("Add Room")
-
-    # main title
-    mainTitle = Label(AddRoomWin, text="Add Room", font=Heading)
-    mainTitle.pack()
-    roomIDvar = StringVar()
-    roomIDent= Entry(AddRoomWin, textvariable=roomIDvar, font=EB, state='readonly')
-    roomIDent.pack()
-    prefix = "RM"
-    ID = prefix + str(len(listRoom)+1).zfill(3)
-    roomIDvar.set(ID)
-
-    roomNamelbl = Label(AddRoomWin, text="Room Name", font=SH1)
-    roomNamelbl.pack()
-    roomNameentry = Entry(AddRoomWin, font=EB)
-    roomNameentry.pack()
-
-    guestLimitlbl = Label(AddRoomWin, text="Set the Guest Limit", font=SH1)
-    guestLimitlbl.pack()
-    guestLimitentry = Entry(AddRoomWin, font=EB)
-    guestLimitentry.pack()
-
-    familyRoomVar = IntVar()
-    familyRoombtn = Checkbutton(AddRoomWin, text="Is this a family room?", variable=familyRoomVar)
-    familyRoombtn.pack()
-
-    def addRoomFunct():
-        check = "12"
-
-        if roomNameentry.get() == "":
-            check = check.replace("1","a")
-
-        if guestLimitentry.get() == "":
-            check = check.replace("2","a")
-
-        if check != "12":
-            if check[0] == "a":
-                messagebox.showerror("Wait!", "The Room Name is empty!")
-
-            if check[1] == "a":
-                messagebox.showerror("Wait!", "The Guest Limit is empty!")
-            elif check[1] == "b":
-                messagebox.showerror("Wait!", "The Guest Limit is not a number!")
-        else:
-            newRoom = room()
-            newRoom.roomID = roomIDent.get()
-            newRoom.roomName = roomNameentry.get()
-            newRoom.guestLimit = guestLimitentry.get()
-            if familyRoomVar.get() == 1:
-                newRoom.familyRoom = True
-            else:
-                newRoom.familyRoom = False
-            listRoom.append(newRoom)
-            AddRoomWin.withdraw()
-            saveData()
-
-    submitbtn = Button(AddRoomWin, text="Submit", font=BTN, command=addRoomFunct)
-    submitbtn.pack()
-
 from pickle import *
 from tkinter import *
 from tkinter import messagebox
@@ -90,7 +5,7 @@ from datastructures import *
 from FontStyleSheet import *
 
 
-def openEditRoomWindow():
+def test():
     #creates the View Room window
     selectRoom = Toplevel()
     selectRoom.geometry("450x400")

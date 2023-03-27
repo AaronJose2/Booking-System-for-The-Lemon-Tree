@@ -26,6 +26,6 @@ BTN = Font(
 
 EB = Font(
     family = "Times",
-    size = 12,
+    size = 14,
     slant = "italic"
 )

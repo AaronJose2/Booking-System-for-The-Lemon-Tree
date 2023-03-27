@@ -14,6 +14,7 @@ class staff():
   staffAddressLine1 = ""
   staffAddressLine2 = ""
   staffCity = ""
+  staffPassword = ""
 
 class customer():
   customerID = "" #PK
@@ -30,7 +31,6 @@ class room():
   roomName = ""
   guestLimit = ""
   familyRoom = bool()
-  ppp = 0
   
 class booking():
   bookingID = "" #PK
