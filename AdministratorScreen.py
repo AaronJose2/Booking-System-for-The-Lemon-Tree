@@ -5,7 +5,6 @@ from CustomerDetailsMenu import *
 from BookingsMenu import *
 from StaffDetailsMenu import *
 from HolidayMenu import *
-from RoomMenu import *
 from TimetableMenu import *
 
 def openAdminWindow():
@@ -32,9 +31,6 @@ def openAdminWindow():
 
     StaffDetailsMenubtn = Button(adminWin, text="Staff Details Menu", font=BTN, command=openStaffDetailsMenuWindow)
     StaffDetailsMenubtn.pack()
-
-    HolidayMenubtn = Button(adminWin, text="Holiday Menu", font=BTN, command=openHolidayMenuWindow)
-    HolidayMenubtn.pack()
 
     RoomMenubtn = Button(adminWin, text="Room Menu", font=BTN, command=openRoomMenuWindow)
     RoomMenubtn.pack()

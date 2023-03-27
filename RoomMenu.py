@@ -83,13 +83,6 @@ def openAddRoomWindow():
     submitbtn = Button(AddRoomWin, text="Submit", font=BTN, command=addRoomFunct)
     submitbtn.pack()
 
-from pickle import *
-from tkinter import *
-from tkinter import messagebox
-from datastructures import *
-from FontStyleSheet import *
-
-
 def openEditRoomWindow():
     #creates the View Room window
     selectRoom = Toplevel()
