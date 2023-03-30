@@ -37,14 +37,21 @@ def getPassUserID():
     userID = userIDentry.get()
     password = passwordentry.get()
 
-    if True:
-        # add validation and verification of password and user name here for final implementation
-        print(userID, password)
-        mainWin.withdraw()
-        openAdminWindow()
+    for staff in listStaff:
+        if str(staff.staffID) == userID:
+            if str(staff.staffPassword) == password:
+                if staff.jobTitle == "Front Desk":
+                    openAdminWindow()
+            
+    if userID == "testID" and password == "testPassword":
+        if adminBool.get() == True:
+            openAdminWindow()
+            mainWin.withdraw()
+        else:
+            mainWin.withdraw()
+            openFrontDeskWindow()
     else:
-        mainWin.withdraw()
-        openFrontDeskWindow()
+        messagebox.showerror("Wait!", "Thats not a valid password or userID \n use testID and testPassword")
 
 passwordbtn = Button(mainWin, text="Login", font=BTN, command=getPassUserID)
 passwordbtn.pack()

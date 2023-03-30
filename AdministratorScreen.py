@@ -4,7 +4,7 @@ from FontStyleSheet import *
 from CustomerDetailsMenu import *
 from BookingsMenu import *
 from StaffDetailsMenu import *
-from HolidayMenu import *
+from RoomMenu import *
 from TimetableMenu import *
 
 def openAdminWindow():

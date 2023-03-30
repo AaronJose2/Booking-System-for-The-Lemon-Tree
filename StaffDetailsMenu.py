@@ -51,8 +51,14 @@ def addStaffDetails():
     staffIDvar = StringVar()
     staffIDentry= Entry(AddStaffWin, textvariable=staffIDvar, font=EB, state='readonly')
     staffIDentry.pack()
-    prefix = "ST"
-    ID = prefix + str(len(listStaff)+1).zfill(3)
+    ID = "ST" +  str(len(listStaff)+1)
+    def pad(ID):
+        if len(ID) < 5:
+            ID = ID[:2] + "0" + ID[2:]
+            return pad(ID)
+        else:
+            return ID
+    ID = pad(ID)
     staffIDvar.set(ID)
 
     staffFNamelbl = Label(AddStaffWin, text="Staff Name", font=SH1)
@@ -175,7 +181,7 @@ def addStaffDetails():
         elif len(staffEmerContNumentry.get()) != 11:
             check = check.replace("8","c")
 
-        if bool(re.match(r'^[A-Z]{1,2}[0-9R][0-9A-Z][0-9][A-Z]{2}$', str(staffPostcode))) != True:
+        if bool(re.match(r'^[A-Z]{1,2}[0-9R][0-9A-Z][0-9][A-Z]{2}$', str(staffPostcodeentry.get()))) != True:
             check = check.replace("9","a")
 
         if staffAddressLine1entry.get() == "":
@@ -502,17 +508,25 @@ def edtiStaffDetails():
                 elif len(staffEmerContNumentry.get()) != 11:
                     check = check.replace("8","c")
 
-                if bool(re.match(r'^[A-Z]{1,2}[0-9R][0-9A-Z][0-9][A-Z]{2}$', str(staffPostcode))) != True:
+                if bool(re.match(r'^[A-Z]{1,2}[0-9R][0-9A-Z][0-9][A-Z]{2}$', str(staffPostcodeentry.get()))) != True:
                     check = check.replace("9","a")
 
                 if staffAddressLine1entry.get() == "":
-                    check = check.replace("10","a")
+                    check = check.replace("10","aa")
 
-                    check = check.replace("11","a")
+                    check = check.replace("11","aa")
 
                 if staffCityentry.get() == "":
-                    check = check.replace("12","a")
+                    check = check.replace("12","aa")
                 
+                if staffJobTitleentry.get() != "Front Desk Staff":
+                    confirmation = messagebox.askquestion("Wait!", "Are you sure you want to delete that?", icon="warning")
+                    if confirmation == "no":
+                        check = ""
+
+                if staffJobTitleentry.get() != "Front Desk Staff":
+                    messagebox.showerror("Wait!", "The Job Title field is empty")
+
                 print(check)
                 if check != "1 2 3 4 5 6 7 8 9 10 11 12":
                     if check[0] == "a":
